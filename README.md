@@ -24,6 +24,6 @@ Alustavat toiminnot:
  <li>Tuotteen poisto hyllystä</li>
  <li>Tapahtumaloki: tuoteseuranta</li>
  <li>Tapahtumaloki: käyttäjävalvonta</li>
- <li>Tapahtumaloki: hyllyn tapahtumahistoria</li>
+ <li>Tapahtumaloki: hyllypaikan tapahtumahistoria</li>
 </ul>
 
