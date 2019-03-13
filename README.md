@@ -26,6 +26,3 @@ Alustavat toiminnot:
  <li>Tapahtumaloki: käyttäjävalvonta</li>
 </ul>
 
-<p>
-Tulee varmasti vielä lisää
-</p>
