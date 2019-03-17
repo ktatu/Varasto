@@ -1,6 +1,14 @@
 <h1>Tsoha</h1>
 <p>
-Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä varastoon sekä poistaa olemassaolevia tuotteita, admin-käyttäjät voivat luoda ja poistaa tuote-nimikkeitä järjestelmästä. Admin-käyttäjä voi myös seurata tapahtumalokista tuotteisiin tai yksittäisiin käyttäjiin liittyviä tapahtumia.
+Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi seurata käyttäjätapahtumia. 
+</p>
+<br>
+
+<p>
+-Tuotteen lisäys ja hyllytys:
+</p>
+<p>
+Järjestelmä kysyy käyttäjältä lisättävän tuotteen tuotekoodia ja tarkastaa onko se uusi tuote. Mikäli tuote on entuudestaan tuttu ja sitä on hyllyssä, ehdottaa järjestelmä tuotteen nykyistä hyllypaikkaa jos siinä on tilaa, muutoin käyttäjä valitsee itse hyllypaikan. (tuotteet varastoidaan kategorioittain). Täysin uudesta tuotteesta käyttäjä kirjaa ylös tuotetiedot ennen hyllypaikan valintaa. 
 </p>
 
 <p>
