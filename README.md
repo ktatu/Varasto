@@ -4,6 +4,8 @@ Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varasto
 </p>
 <br>
 
+https://varastojarjestelma.herokuapp.com/
+
 <p>
 -Tuotteen lisäys ja hyllytys:
 </p>
