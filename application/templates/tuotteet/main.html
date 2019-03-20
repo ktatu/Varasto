@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('tuotteet_search') }}">
+    <fieldset>
+        Tuotekoodi:<br>
+        <input type="text" name="tuotekoodi"/>
+        <input type="submit" name="nappi" value="Hae tuotetta"/>
+        <input type="submit" name="nappi" value="Lisää uusi tuote"/><br>
+        Määrä:<br>
+        <input type="number" name="lisays"/>
+        <input type="submit" name="nappi" value="Päivitä saldo"/>
+    </fieldset>
+</form>
+
+<form method="GET" action="{{ url_for('tuotteet_index') }}">
+    <input type="submit" value="Listaa tuotteet"/>
+</form>
+
+{% endblock %}

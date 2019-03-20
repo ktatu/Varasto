@@ -1,4 +1,4 @@
-<h1>Tsoha</h1>
+<h1>Varastojärjestelmä</h1>
 <p>
 Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi seurata käyttäjätapahtumia. 
 </p>
@@ -18,7 +18,6 @@ Alustavat luokat:
  <li>Kayttaja</li>
  <li>Tuote</li>
  <li>Varasto</li>
- <li>Tapahtumaloki</li>
 </ul>
 
 <p>

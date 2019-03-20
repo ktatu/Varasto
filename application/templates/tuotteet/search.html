@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table>
+    <tr>Tuote:</tr>
+    {% for tuote in tuote1 %}
+    <ul>
+    <!--    <li>id: {{ tuote.id }}</li>-->
+        <li>Tuotekoodi: {{ tuote.tuotekoodi }}</li>
+        <li>Muokkauspäivämäärä: {{ tuote.date_modified }}</li>
+        <li>Nimi: {{ tuote.nimi }}</li>
+        <li>Määrä: {{ tuote.maara }}</li>
+        <li>Kategoria: {{ tuote.kategoria }}</li>
+        <li>Kuvaus: "{{ tuote.kuvaus }}"</li>
+    </ul>
+    {% endfor %}
+</table>
+
+
+{% endblock %}

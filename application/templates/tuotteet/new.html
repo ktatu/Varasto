@@ -5,13 +5,15 @@
     <fieldset>
         <legend>Tuoteinformaatio:</legend>
         Tuotekoodi:<br>
-        <input type="text" name="tuotekoodi"/><br>
+        <input type="text" name="tuotekoodi" value="{{ koodi }}"/><br>
         Nimi:<br>
         <input type="text" name="nimi"/><br>
         Määrä:<br>
         <input type="text" name="maara"/><br>
         Kategoria:<br>
-        <input type="text" name="kategoria"/><br>
+        <input type="radio" name="kategoria" value="elintarvike"/>Elintarvike
+        <input type="radio" name="kategoria" value="vapaa-aika"/>Vapaa-aika
+        <input type="radio" name="kategoria" value="koti"/>Koti<br>
         Kuvaus:<br>
         <input type="text" name="kuvaus"/><br>
         <input type="submit" value="Luo uusi tuote"/><br>

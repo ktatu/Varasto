@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table>
+    <tr>
+        <th>Tuote</th>
+    </tr>
+    {% for tuote in tuotteet %}
+    <tr>
+        <td>{{ tuote.tuotekoodi }}</td>
+        <td>{{ tuote.nimi }}</td>
+        <td>{{ tuote.maara }}</td>
+        <td>{{ tuote.kategoria }}</td>
+        <td>{{ tuote.kuvaus }}</td><br>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
