@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form>
+    <fieldset>
+        <legend>Tuoteinformaatio:</legend>
+        {% for field in form %}
+            <tr>
+                <th>{{ field.label }}</th>
+                <td>{{ field }}</td>
+            </tr>
+        {% endfor %}
+        <input type="submit" value="Luo uusi tuote"/>
+    </fieldset>
+</form>
+{% endblock %}

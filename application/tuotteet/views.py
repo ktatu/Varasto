@@ -2,19 +2,19 @@ from application import app, db
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy.sql.expression import exists
 from application.tuotteet.models import Tuote
+from application.tuotteet.forms import TuoteForm
  
 app.secret_key = 'salainen_avain'
 
-@app.route("/tuotteet/new")
-def tuotteet_form(tuotekoodi):
-    return render_template("tuotteet/new.html", koodi=tuotekoodi)
+@app.route("/tuotteet/uusinew")
+def tuotteet_form():
+    return render_template("tuotteet/uusinew.html", form = TuoteForm())
 
 @app.route("/tuotteet", methods=["POST"])
 def tuotteet_create():
 
-    t = Tuote(request.form.get("tuotekoodi"), request.form.get("nimi"),
-    request.form.get("maara"), request.form.get("kategoria"), 
-    request.form.get("kuvaus"))
+    form = TuoteForm(request.form)
+    t = Tuote(form.tuotekoodi.data, form.nimi.data, form.maara.data, form.kategoria.data, form.kuvaus.data)
 
     db.session().add(t)
     db.session().commit()
@@ -57,7 +57,7 @@ def tuotteet_search():
             flash('Tuote ei ole uusi, tee saldopäivitys')
             return redirect(url_for("tuotteet_mainpage"))
         else:
-            return tuotteet_form(koodi)
+            return redirect(url_for("tuotteet_form"))
 
     # saldopäivitys
     else:

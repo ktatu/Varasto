@@ -1,5 +1,8 @@
 ## Tämänhetkiset toiminnot
 
+24.3 LA
+HUOM! sovelluksen muuttaminen osan 3 myötä (wtforms käyttöön) kesken, tuotelisäys rikki 
+
 * Normaalikäyttäjänä voin lisätä uuden tuotteen varastoon
   - Ei onnistu, jos tuote on järjestelmässä
 
