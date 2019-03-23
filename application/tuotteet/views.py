@@ -1,7 +1,9 @@
 from application import app, db
-from flask import render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy.sql.expression import exists
 from application.tuotteet.models import Tuote
+ 
+app.secret_key = 'salainen_avain'
 
 @app.route("/tuotteet/new")
 def tuotteet_form(tuotekoodi):
@@ -35,8 +37,15 @@ def tuotteet_search():
     if request.form["nappi"] == "Hae tuotetta":
         koodi = request.form.get("tuotekoodi")
 
-        # if tuote: näytä tuoteinformaatio. else: "tuotetta ei ole varastossa."
-        return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi))
+        #workaround-ratkaisu, sama query kahdesti
+        tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi).first()
+
+        if tuote:
+            return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi))
+
+        else:
+            flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
+            return redirect(url_for('tuotteet_mainpage'))
 
     # tuotelisäys
     elif request.form["nappi"] == "Lisää uusi tuote":
@@ -44,8 +53,8 @@ def tuotteet_search():
 
         tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == koodi).first()
 
-        # if: "tuotetta on jo varastossa, tee saldopäivitys"
         if tuote:
+            flash('Tuote ei ole uusi, tee saldopäivitys')
             return redirect(url_for("tuotteet_mainpage"))
         else:
             return tuotteet_form(koodi)
@@ -54,16 +63,28 @@ def tuotteet_search():
     else:
         tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == request.form.get("tuotekoodi")).first()
 
-        # sijoitetaan entiselle hyllypaikalle jos kapasiteetti sallii. jos ei, niin ohjataan valitsemaan uusi paikka
+
+        #todo: sijoitetaan entiselle hyllypaikalle jos kapasiteetti sallii. jos ei, niin ohjataan valitsemaan uusi paikka
         # sijoitus uudessa näkymässä commitin jälkeen
         if tuote:
+
             lisattava = request.form.get("lisays")
+
+            if (int(lisattava) <= 0):
+                flash('Virheellinen lisäys: yritit lisätä saldoon ' + lisattava)
+                return redirect(url_for("tuotteet_mainpage"))
+
+            koodi = tuote.tuotekoodi
             
             tuote.maara = tuote.maara + int(lisattava)
             db.session().commit()
 
-        # else: ilmoitus: "tuotetta ei ole varastossa"
-        
+            flash('Tuotteeseen ' + str(koodi) + ' lisätty ' + lisattava)
+
+        else:
+            flash('Tuotetta ' + request.form.get("tuotekoodi") + ' ei ole varastossa')
+
+
         return redirect(url_for("tuotteet_mainpage"))
 
 
