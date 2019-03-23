@@ -1,6 +1,6 @@
 <h1>Varastojärjestelmä</h1>
 <h2>https://varastojarjestelma.herokuapp.com/</h2>
-
+## [User stories](documentation/userstories.md)
 
 <p>
 Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi seurata käyttäjätapahtumia. 
