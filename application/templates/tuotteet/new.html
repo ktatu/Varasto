@@ -4,19 +4,37 @@
 <form method="POST" action="{{ url_for('tuotteet_create') }}">
     <fieldset>
         <legend>Tuoteinformaatio:</legend>
-        Tuotekoodi:<br>
-        <input type="text" name="tuotekoodi" value="{{ koodi }}"/><br>
-        Nimi:<br>
-        <input type="text" name="nimi"/><br>
-        Määrä:<br>
-        <input type="text" name="maara"/><br>
-        Kategoria:<br>
-        <input type="radio" name="kategoria" value="elintarvike"/>Elintarvike
-        <input type="radio" name="kategoria" value="vapaa-aika"/>Vapaa-aika
-        <input type="radio" name="kategoria" value="koti"/>Koti<br>
-        Kuvaus:<br>
-        <input type="text" name="kuvaus"/><br>
+            <tr>
+                <th>{{ form.tuotekoodi.label }}</th>
+                <td>{{ form.tuotekoodi }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.nimi.label }}</th>
+                <td>{{ form.nimi }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.maara.label }}</th>
+                <td>{{ form.maara }}</td>
+            </tr><br>
+            <tr>
+                <th>{{ form.kategoria.label }}</th>
+                <td>{{ form.kategoria }}</td>
+            </tr>
+            <tr>
+                <th>{{ form.kuvaus.label }}</th>
+                <td>{{ form.kuvaus }}</td>
+            </tr>
         <input type="submit" value="Luo uusi tuote"/><br>
+        <td>
+            <ul>
+                {% for field, errors in form.errors.items() %}
+                <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+                {% endfor %}
+            </ul>
+        </td>
     </fieldset>
+</form>
+<form method="POST" action="{{ url_for('tuotteet_return') }}">
+    <input type="submit" name="peruuta" value="Takaisin"/>
 </form>
 {% endblock %}

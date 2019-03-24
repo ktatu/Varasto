@@ -6,14 +6,22 @@ from application.tuotteet.forms import TuoteForm
  
 app.secret_key = 'salainen_avain'
 
-@app.route("/tuotteet/uusinew")
+@app.route("/tuotteet/new")
 def tuotteet_form():
-    return render_template("tuotteet/uusinew.html", form = TuoteForm())
+    return render_template("tuotteet/new.html", form = TuoteForm())
+
+@app.route("/tuotteet/new", methods=["POST"])
+def tuotteet_return():
+    return redirect(url_for('tuotteet_mainpage'))
 
 @app.route("/tuotteet", methods=["POST"])
 def tuotteet_create():
 
     form = TuoteForm(request.form)
+
+    if not form.validate():
+        return render_template("tuotteet/new.html", form = form)
+
     t = Tuote(form.tuotekoodi.data, form.nimi.data, form.maara.data, form.kategoria.data, form.kuvaus.data)
 
     db.session().add(t)
