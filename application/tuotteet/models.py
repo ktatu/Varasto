@@ -3,8 +3,8 @@ from application import db
 class Tuote(db.Model):
 #    id = db.Column(db.Integer, primary_key=True)
     tuotekoodi = db.Column(db.Integer, primary_key=True, autoincrement=False)
-    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
-    date_modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
+    luomis_pvm = db.Column(db.DateTime, default=db.func.current_timestamp())
+    muokkaus_pvm = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
 
 #    tuotekoodi = db.Column(db.Integer, nullable=False)

@@ -4,18 +4,38 @@
 
 <form method="POST" action="{{ url_for('tuotteet_search') }}">
     <fieldset>
-        Tuotekoodi:<br>
-        <input type="text" name="tuotekoodi"/>
-        <input type="submit" name="nappi" value="Hae tuotetta"/>
-        <input type="submit" name="nappi" value="Lisää uusi tuote"/><br>
-        Määrä:<br>
-        <input type="number" name="lisays"/>
-        <input type="submit" name="nappi" value="Päivitä saldo"/>
+            <tr>
+                <th>{{ form.tuotekoodi.label }}</th><br>
+                <td>{{ form.tuotekoodi }}</td>
+                <input type="submit" name="nappi" value="Hae tuotetta"/>
+                <input type="submit" name="nappi" value="Lisää tuote"/>
+            </tr><br>
+            <tr>
+                <th>{{ form.maara.label }}</th><br>
+                <td>{{ form.maara }}</td>
+                <input type="submit" name="nappi" value="Lisää saldoon"/>
+            </tr>
     </fieldset>
 </form>
 
 <form method="GET" action="{{ url_for('tuotteet_index') }}">
     <input type="submit" value="Listaa tuotteet"/>
 </form>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+{% for field, errors in form.errors.items() %}
+    <ul>
+        <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+    </ul>
+{% endfor %}
 
 {% endblock %}

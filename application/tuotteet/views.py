@@ -2,11 +2,14 @@ from application import app, db
 from flask import Flask, render_template, request, redirect, url_for, flash
 from sqlalchemy.sql.expression import exists
 from application.tuotteet.models import Tuote
-from application.tuotteet.forms import TuoteForm
+from application.tuotteet.forms import TuoteForm, mainPageForm
+from flask_login import login_required, current_user
+from application.lokit.models import Loki
  
-app.secret_key = 'salainen_avain'
+# app.secret_key = 'salainen_avain'
 
 @app.route("/tuotteet/new")
+@login_required
 def tuotteet_form():
     return render_template("tuotteet/new.html", form = TuoteForm())
 
@@ -15,6 +18,7 @@ def tuotteet_return():
     return redirect(url_for('tuotteet_mainpage'))
 
 @app.route("/tuotteet", methods=["POST"])
+@login_required
 def tuotteet_create():
 
     form = TuoteForm(request.form)
@@ -24,6 +28,10 @@ def tuotteet_create():
 
     t = Tuote(form.tuotekoodi.data, form.nimi.data, form.maara.data, form.kategoria.data, form.kuvaus.data)
 
+    loki = Loki(form.tuotekoodi.data, "tuotelisäys määrä "+str(form.maara.data))
+    loki.account_id = current_user.id
+
+    db.session().add(loki)
     db.session().add(t)
     db.session().commit()
 
@@ -31,23 +39,29 @@ def tuotteet_create():
 
 
 @app.route("/tuotteet", methods=["GET"])
+@login_required
 def tuotteet_index():
     return render_template("tuotteet/list.html", tuotteet = Tuote.query.all())
 
 @app.route("/tuotteet/main")
 def tuotteet_mainpage():
-    return render_template("tuotteet/main.html")
+    return render_template("tuotteet/main.html", form = mainPageForm())
 
 @app.route("/tuotteet/main", methods=["POST"])
+@login_required
 def tuotteet_search():
+
+    form = mainPageForm(request.form)
+    koodi = form.tuotekoodi.data
+    tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi).first()
+
+    if not form.tuotekoodi.validate(form):
+        return render_template("tuotteet/main.html", form = form)
 
     # tuotehaku
     if request.form["nappi"] == "Hae tuotetta":
-        koodi = request.form.get("tuotekoodi")
 
-        #workaround-ratkaisu, sama query kahdesti
-        tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi).first()
-
+        # workaround-ratkaisu, sama query kahdesti
         if tuote:
             return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi))
 
@@ -56,41 +70,37 @@ def tuotteet_search():
             return redirect(url_for('tuotteet_mainpage'))
 
     # tuotelisäys
-    elif request.form["nappi"] == "Lisää uusi tuote":
-        koodi = request.form.get("tuotekoodi")
-
-        tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == koodi).first()
+    elif request.form["nappi"] == "Lisää tuote":
 
         if tuote:
-            flash('Tuote ei ole uusi, tee saldopäivitys')
+            flash('Tuote ' + str(koodi) +' ei ole uusi, tee saldopäivitys')
             return redirect(url_for("tuotteet_mainpage"))
         else:
             return redirect(url_for("tuotteet_form"))
 
     # saldopäivitys
     else:
-        tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == request.form.get("tuotekoodi")).first()
 
+        lisattava = form.maara.data
+        if not form.maara.validate(form):
+            return render_template("tuotteet/main.html", form = form)
 
         #todo: sijoitetaan entiselle hyllypaikalle jos kapasiteetti sallii. jos ei, niin ohjataan valitsemaan uusi paikka
         # sijoitus uudessa näkymässä commitin jälkeen
         if tuote:
-
-            lisattava = request.form.get("lisays")
-
-            if (int(lisattava) <= 0):
-                flash('Virheellinen lisäys: yritit lisätä saldoon ' + lisattava)
-                return redirect(url_for("tuotteet_mainpage"))
-
-            koodi = tuote.tuotekoodi
             
-            tuote.maara = tuote.maara + int(lisattava)
+            tuote.maara = tuote.maara + lisattava
+            loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava))
+            loki.account_id = current_user.id
+
+            db.session().add(loki)
             db.session().commit()
 
-            flash('Tuotteeseen ' + str(koodi) + ' lisätty ' + lisattava)
+            # ilmoitus onnistuneesta saldolisäyksestä
+            flash('Tuotteeseen ' + str(koodi) + ' lisätty ' + str(lisattava))
 
         else:
-            flash('Tuotetta ' + request.form.get("tuotekoodi") + ' ei ole varastossa')
+            flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
 
 
         return redirect(url_for("tuotteet_mainpage"))

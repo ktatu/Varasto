@@ -15,8 +15,12 @@
   - Yrittää lisätä tuotteen saldoon ei-positiivista määrää
   - Tuotteen saldolisäys onnistuu
 
+* Käyttäjänä suorittamistani toiminnoista jää loki järjestelmään
+  - Saldolisäyksestä
+  - Tuotelisäyksestä
+
 ## To do(?):
 
-* Varastointiin liittyvät toiminnot
+* Varastointiin liittyvät toiminnot (ml. saldovähennys)
 
 * Admin-käyttäjä voi poistaa tuotteen tai muokata tuotetietoja
