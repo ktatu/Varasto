@@ -18,6 +18,13 @@
 * Käyttäjänä suorittamistani toiminnoista jää loki järjestelmään
   - Saldolisäyksestä
   - Tuotelisäyksestä
+  
+### Päivitys: osa 3
+
+* Käyttäjänä joudun kirjautumaan sisään järjestelmään, jotta voin tehdä muutoksia
+
+* Käyttäjänä voin tarkastella omia tapahtumiani
+  -Ylälaidan nappi "Tapahtumat"
 
 ## To do(?):
 
