@@ -1,7 +1,7 @@
 <h1>Varastojärjestelmä</h1>
 <h2>https://varastojarjestelma.herokuapp.com/</h2>
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
-
+<h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
 <p>
 Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi seurata käyttäjätapahtumia. 
 </p>
