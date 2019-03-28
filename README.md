@@ -9,6 +9,7 @@ Ohjaajapalautteen myötä muokkasin tietokantakaaviota. User ja Loki ovat irrall
 
 Etapissa haluttiin CRUD-toiminnallisuus, mutta en pystynyt vielä toteuttamaan tätä haluamallani tavalla. Tuotteiden saldovähennys tulee tapahtumaan hyllypaikkojen avulla - hyllystä vähennetään tuotetta ja tuotteen kokonaismäärä Tuote-tietokantataulussa myös vähenee. Varastoimisen toteutus ei ole vielä valmis.
 
+<h2>Kuvaus</h2>
 <p>
 Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi seurata käyttäjätapahtumia. 
 </p>
@@ -28,6 +29,7 @@ Alustavat luokat:
  <li>Kayttaja</li>
  <li>Tuote</li>
  <li>Varasto</li>
+ <li>Loki</li>
 </ul>
 
 <p>
