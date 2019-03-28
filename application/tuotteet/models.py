@@ -1,4 +1,4 @@
-from application import db
+from application import app, db
 
 class Tuote(db.Model):
     tuotekoodi = db.Column(db.Integer, primary_key=True, autoincrement=False)
