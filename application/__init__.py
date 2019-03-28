@@ -22,6 +22,10 @@ from application.auth import models
 from application.auth import views
 
 from application.lokit import models
+from application.lokit import views
+
+from application.hyllypaikat import models
+from application.hyllypaikat import views
 
 from application.auth.models import User
 from os import urandom

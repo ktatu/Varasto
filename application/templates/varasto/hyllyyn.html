@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+{% for tuote in tuote %}
+<tr>
+    <td>{{ tuote.tuotekoodi }}</td>
+    <td>{{ tuote.nimi }}</td>
+    <td>{{ tuote.hyllytettava }}</td>
+    <td>{{ tuote.kategoria }}</td>
+    <td>{{ tuote.kuvaus }}</td>
+</tr>
+{% endfor %}
+
+{% endblock %}

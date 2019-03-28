@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+
+{% block body %}
+
+<table>
+        <tr>
+            <th>Tuotekoodi</th>
+            <th>Nimi</th>
+            <th>Määrä</th>
+            <th>Kategoria</th>
+            <th>Kuvaus</th>
+        </tr>
+        {% for tuote in tuotteet %}
+        <tr>
+            <td>{{ tuote.tuotekoodi }}</td>
+            <td>{{ tuote.nimi }}</td>
+            <td>{{ tuote.hyllytettava }}</td>
+            <td>{{ tuote.kategoria }}</td>
+            <td>{{ tuote.kuvaus }}</td>
+            <form method="POST" action="{{ url_for('product_to_shelf', tuotekoodi=tuote.tuotekoodi) }}">
+                <td><input type="submit" value="Hyllyyn"></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

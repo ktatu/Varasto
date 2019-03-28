@@ -2,11 +2,17 @@
 <html>
   <head>
     <title>Varasto</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+    </style>
   </head>
   <body>
     {% if current_user.is_authenticated %}
     <p>
-      Kirjautunut nimellä {{ current_user.name }}. <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
+      Kirjautunut nimellä {{ current_user.name }}. 
+      <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a> <a href="{{ url_for('user_logs') }}">Tapahtumat</a> <a href="{{ url_for('index') }}">Etusivulle</a>
     </p>
     {% else %}
     <a href="{{ url_for('auth_login') }}">Kirjaudu</a>

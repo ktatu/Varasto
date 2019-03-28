@@ -27,9 +27,9 @@ def tuotteet_create():
         return render_template("tuotteet/new.html", form = form)
 
     t = Tuote(form.tuotekoodi.data, form.nimi.data, form.maara.data, form.kategoria.data, form.kuvaus.data)
+    t.hyllytettava = form.maara.data
 
-    loki = Loki(form.tuotekoodi.data, "tuotelisäys määrä "+str(form.maara.data))
-    loki.account_id = current_user.id
+    loki = Loki(form.tuotekoodi.data, "tuotelisäys määrä "+str(form.maara.data), current_user.id)
 
     db.session().add(loki)
     db.session().add(t)
@@ -85,13 +85,11 @@ def tuotteet_search():
         if not form.maara.validate(form):
             return render_template("tuotteet/main.html", form = form)
 
-        #todo: sijoitetaan entiselle hyllypaikalle jos kapasiteetti sallii. jos ei, niin ohjataan valitsemaan uusi paikka
-        # sijoitus uudessa näkymässä commitin jälkeen
         if tuote:
             
             tuote.maara = tuote.maara + lisattava
-            loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava))
-            loki.account_id = current_user.id
+            tuote.hyllytettava = tuote.hyllytettava + lisattava
+            loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava), current_user.id)
 
             db.session().add(loki)
             db.session().commit()
