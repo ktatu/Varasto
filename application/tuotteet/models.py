@@ -10,7 +10,7 @@ class Tuote(db.Model):
     maara = db.Column(db.Integer, nullable=False)
     kategoria = db.Column(db.String(100), nullable=False)
     kuvaus = db.Column(db.String(200), nullable=True)
-    hyllytettava = db.Column(db.Integer, default=0)
+    hyllytettava = db.Column(db.Integer, default=0, nullable=True)
 
     hyllypaikat = db.relationship('Hyllypaikka', backref='tuote', lazy=True)
 
