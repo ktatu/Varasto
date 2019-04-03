@@ -2,7 +2,7 @@ from flask import render_template, request, url_for, redirect
 from flask_login import login_user, logout_user
 
 from application import app
-from application.auth.models import User
+from application.auth.models import Kayttaja
 from application.auth.forms import LoginForm
 
 
@@ -14,7 +14,7 @@ def auth_login():
 
     form = LoginForm(request.form)
 
-    user = User.query.filter_by(username = form.username.data, password = form.password.data).first()
+    user = Kayttaja.query.filter_by(username = form.username.data, password = form.password.data).first()
     if not user:
         return render_template("auth/loginform.html", form = form, error = "Käyttäjää ei tunnistettu")
 

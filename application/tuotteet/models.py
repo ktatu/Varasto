@@ -2,8 +2,8 @@ from application import app, db
 
 class Tuote(db.Model):
     tuotekoodi = db.Column(db.Integer, primary_key=True, autoincrement=False)
-    luomis_pvm = db.Column(db.DateTime, default=db.func.current_timestamp())
-    muokkaus_pvm = db.Column(db.DateTime, default=db.func.current_timestamp(),
+    luotu = db.Column(db.DateTime, default=db.func.current_timestamp())
+    muokattu = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
 
     nimi = db.Column(db.String(144), nullable=False)

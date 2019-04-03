@@ -27,7 +27,7 @@ from application.lokit import views
 from application.hyllypaikat import models
 from application.hyllypaikat import views
 
-from application.auth.models import User
+from application.auth.models import Kayttaja
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
 
@@ -40,7 +40,7 @@ login_manager.login_message = "Please login to use this functionality."
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+    return Kayttaja.query.get(user_id)
 
 try:
     db.create_all()
