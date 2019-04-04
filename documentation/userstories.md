@@ -24,7 +24,7 @@
 * Käyttäjänä joudun kirjautumaan sisään järjestelmään, jotta voin tehdä muutoksia
 
 * Käyttäjänä voin tarkastella omia tapahtumiani
-  -Ylälaidan nappi "Tapahtumat"
+  - Ylälaidan nappi "Tapahtumat"
   
 ### Päivitys osa 4:
 
