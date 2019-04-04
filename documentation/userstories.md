@@ -1,7 +1,7 @@
 ## Tämänhetkiset toiminnot
 
 * Normaalikäyttäjänä voin lisätä uuden tuotteen varastoon
-  - Ei onnistu, jos tuote on järjestelmässä
+  - Rajoite: ei onnistu, jos tuote on järjestelmässä
 
 * Normaalikäyttäjänä voin listata kaikkien tuotteiden tiedot
 
@@ -14,20 +14,25 @@
   - Yrittää hakea olematonta tuotetta
   - Yrittää lisätä tuotteen saldoon ei-positiivista määrää
   - Tuotteen saldolisäys onnistuu
+  - Tuotteen hyllytys
 
 * Käyttäjänä suorittamistani toiminnoista jää loki järjestelmään
-  - Saldolisäyksestä
-  - Tuotelisäyksestä
+  - Saldolisäys
+  - Tuotelisäys
+  - Hyllytys
   
-### Päivitys: osa 3
-
 * Käyttäjänä joudun kirjautumaan sisään järjestelmään, jotta voin tehdä muutoksia
 
 * Käyttäjänä voin tarkastella omia tapahtumiani
   -Ylälaidan nappi "Tapahtumat"
+  
+### Päivitys osa 4:
+
+* Käyttäjänä voin hyllyttää tuotteita
+  - Rajoite: järjestelmä etsii samasta kategoriasta (osasto) hyllypaikan.
 
 ## To do(?):
 
-* Varastointiin liittyvät toiminnot (ml. saldovähennys)
+* Tuotteen poisto hyllypaikalta
 
 * Admin-käyttäjä voi poistaa tuotteen tai muokata tuotetietoja
