@@ -1,14 +1,36 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% for tuote in tuote %}
-<tr>
-    <td>{{ tuote.tuotekoodi }}</td>
-    <td>{{ tuote.nimi }}</td>
-    <td>{{ tuote.hyllytettava }}</td>
-    <td>{{ tuote.kategoria }}</td>
-    <td>{{ tuote.kuvaus }}</td>
-</tr>
-{% endfor %}
+<table>
+    <tr>
+        <th>Tuotekoodi</th>
+        <th>Nimi</th>
+        <th>Määrä</th>
+        <th>Kategoria</th>
+        <th>Kuvaus</th>
+    </tr>
+    <tr>
+        <td>{{ tuote.tuotekoodi }}</td>
+        <td>{{ tuote.nimi }}</td>
+        <td>{{ tuote.hyllytettava }}</td>
+        <td>{{ tuote.kategoria }}</td>
+        <td>{{ tuote.kuvaus }}</td>
+    </tr>
+</table>
+<br>
+<br>
+<table>
+    <tr>
+        {% for hyllypaikka in paikka %}
+        <form method="POST" action="{{ url_for('product_to_shelf', tuotekoodi=tuote.tuotekoodi, paikkanumero=hyllypaikka.paikkanumero) }}">
+        <td>Paikkanumero: {{ hyllypaikka.paikkanumero }}</td>
+        {% if hyllypaikka.maara == 0 %}
+            <td>{{ form.kapasiteetti.label }} {{ form.kapasiteetti }}</td>
+        {% endif %}
+            <td><input type="submit" value="Hyllyyn"/></td>
+        </form>
+        {% endfor %}
+    </tr>
+</table>
 
 {% endblock %}

@@ -22,16 +22,6 @@
     <input type="submit" value="Listaa tuotteet"/>
 </form>
 
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class=flashes>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-
 {% for field, errors in form.errors.items() %}
     <ul>
         <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
