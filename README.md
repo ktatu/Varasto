@@ -2,12 +2,8 @@
 <h2>https://varastojarjestelma.herokuapp.com/</h2>
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
 <h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
-<h3>Päivitys: Osa 3</h3>
-Uudet tietokantataulut sovelluksesssa: Loki ja Varasto. Jokaisesta käyttäjän tuotteisiin tai hyllypaikkoihin kohdistuvasta toimesta syntyy loki. Varaston toiminnallisuudet työn alla.
-
-Ohjaajapalautteen myötä muokkasin tietokantakaaviota. User ja Loki ovat irrallaan Tuotteesta ja Varastosta - en keksinyt tapaa linkittää näitä, sillä en keksi mitään käyttöä yhteyksille. Jokaisesta käyttäjän varastoon tai tuotteisiin vaikuttavasta toimesta kuitenkin syntyy loki.
-
-Etapissa haluttiin CRUD-toiminnallisuus, mutta en pystynyt vielä toteuttamaan tätä haluamallani tavalla. Tuotteiden saldovähennys tulee tapahtumaan hyllypaikkojen avulla - hyllystä vähennetään tuotetta ja tuotteen kokonaismäärä Tuote-tietokantataulussa myös vähenee. Varastoimisen toteutus ei ole vielä valmis.
+<h3>Päivitys: Osa 4</h3>
+Tuotteita voi nyt lisätä hyllyyn, mikäli järjestelmä löytää sopivan paikan. Poistaminen ei vielä mahdollista. Ulkoasun työstäminen kesken, navbar valmis.
 
 <h2>Kuvaus</h2>
 <p>
