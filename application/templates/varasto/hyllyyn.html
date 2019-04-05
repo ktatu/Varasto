@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table>
+<table class="table table-bordered">
     <tr>
         <th>Tuotekoodi</th>
         <th>Nimi</th>
@@ -19,7 +19,7 @@
 </table>
 <br>
 <br>
-<table>
+<table class="table table-bordered">
     <tr>
         {% for hyllypaikka in paikka %}
         <form method="POST" action="{{ url_for('product_to_shelf', tuotekoodi=tuote.tuotekoodi, paikkanumero=hyllypaikka.paikkanumero) }}">
