@@ -3,7 +3,7 @@
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
 <h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
 <h3>Päivitys: Osa 4</h3>
-Tuotteita voi nyt lisätä hyllyyn, mikäli järjestelmä löytää sopivan paikan. Poistaminen ei vielä mahdollista. Ulkoasun työstäminen kesken, navbar valmis. User storyjä päivitetty.
+Tuotteita voi nyt lisätä hyllyyn, mikäli järjestelmä löytää sopivan paikan. Poistaminen ei vielä mahdollista. Ulkoasua uudistettu. User storyjä päivitetty.
 
 <h2>Kuvaus</h2>
 <p>
