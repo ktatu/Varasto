@@ -3,6 +3,11 @@
   <head>
     <title>Varasto</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .container {
+          max-width: 1000px;
+        }
+    </style>
   </head>
   <body>
       <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
@@ -19,19 +24,24 @@
                 <a class="nav-link" href="{{ url_for('user_logs') }}">Tapahtumat</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('tuotteet_mainpage') }}">Tuotteet</a>
+                  <a class="nav-link" href="{{ url_for('tuotteet_etusivu') }}">Tuotteet</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" href="{{ url_for('varasto_to_shelf') }}">Hyllytys</a>
               </li>
               {% if current_user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
-              </li>
+                {% if current_user.role() == "ADMIN" %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('create_user_form') }}">Luo käyttäjä</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
+                </li>
               {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
-              </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
+                </li>
               {% endif %}
             </ul>
           </div>

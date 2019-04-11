@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<form method="POST" action="{{ url_for('tuotteet_create') }}">
+<form method="POST" action="{{ url_for('luo_tuote') }}">
     <fieldset>
         <legend>Tuoteinformaatio:</legend>
             <tr>
@@ -34,7 +34,7 @@
         </td>
     </fieldset>
 </form>
-<form method="POST" action="{{ url_for('tuotteet_return') }}">
+<form method="POST" action="{{ url_for('tuotteet_palautus') }}">
     <input type="submit" name="peruuta" value="Takaisin"/>
 </form>
 {% endblock %}

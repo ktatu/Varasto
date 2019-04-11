@@ -5,21 +5,22 @@ from application.tuotteet.models import Tuote
 from application.tuotteet.forms import TuoteForm, mainPageForm
 from flask_login import login_required, current_user
 from application.lokit.models import Loki
+from application.hyllypaikat.models import Hyllypaikka
  
 # app.secret_key = 'salainen_avain'
 
 @app.route("/tuotteet/new")
 @login_required
-def tuotteet_form():
+def tuotteet_lomake():
     return render_template("tuotteet/new.html", form = TuoteForm())
 
 @app.route("/tuotteet/new", methods=["POST"])
-def tuotteet_return():
-    return redirect(url_for('tuotteet_mainpage'))
+def tuotteet_palautus():
+    return redirect(url_for('tuotteet_etusivu'))
 
 @app.route("/tuotteet", methods=["POST"])
 @login_required
-def tuotteet_create():
+def luo_tuote():
 
     form = TuoteForm(request.form)
 
@@ -35,21 +36,21 @@ def tuotteet_create():
     db.session().add(t)
     db.session().commit()
 
-    return redirect(url_for("tuotteet_mainpage"))
+    return redirect(url_for("tuotteet_etusivu"))
 
 
 @app.route("/tuotteet", methods=["GET"])
 @login_required
-def tuotteet_index():
+def tuotteet_indeksi():
     return render_template("tuotteet/list.html", tuotteet = Tuote.query.all())
 
 @app.route("/tuotteet/main")
-def tuotteet_mainpage():
+def tuotteet_etusivu():
     return render_template("tuotteet/main.html", form = mainPageForm())
 
 @app.route("/tuotteet/main", methods=["POST"])
 @login_required
-def tuotteet_search():
+def tuotteet_haku():
 
     form = mainPageForm(request.form)
     koodi = form.tuotekoodi.data
@@ -63,20 +64,21 @@ def tuotteet_search():
 
         # workaround-ratkaisu, sama query kahdesti
         if tuote:
-            return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi))
+            hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == koodi).all()
+            return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi), hyllypaikat = hyllypaikat)
 
         else:
             flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
-            return redirect(url_for('tuotteet_mainpage'))
+            return redirect(url_for('tuotteet_etusivu'))
 
     # tuotelisäys
     elif request.form["nappi"] == "Lisää tuote":
 
         if tuote:
             flash('Tuote ' + str(koodi) +' ei ole uusi, tee saldopäivitys')
-            return redirect(url_for("tuotteet_mainpage"))
+            return redirect(url_for("tuotteet_etusivu"))
         else:
-            return redirect(url_for("tuotteet_form"))
+            return redirect(url_for("tuotteet_lomake"))
 
     # saldopäivitys
     else:
@@ -94,13 +96,9 @@ def tuotteet_search():
             db.session().add(loki)
             db.session().commit()
 
-            # ilmoitus onnistuneesta saldolisäyksestä
             flash('Tuotteeseen ' + str(koodi) + ' lisätty ' + str(lisattava))
-
         else:
             flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
 
 
-        return redirect(url_for("tuotteet_mainpage"))
-
-
+        return redirect(url_for("tuotteet_etusivu"))

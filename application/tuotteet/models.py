@@ -13,6 +13,7 @@ class Tuote(db.Model):
     hyllytettava = db.Column(db.Integer, default=0, nullable=True)
 
     hyllypaikat = db.relationship('Hyllypaikka', backref='tuote', lazy=True)
+    lokit = db.relationship('Loki', backref='tuote', lazy=True)
 
     def __init__(self, tuotekoodi, nimi, maara, kategoria, kuvaus):
         self.tuotekoodi = tuotekoodi

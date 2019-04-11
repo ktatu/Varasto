@@ -8,3 +8,10 @@ class KapasiteettiForm(FlaskForm):
 
     class Meta:
         csrf = False
+
+class TuoteVahennys(FlaskForm):
+
+    vahennys = IntegerField("Saldovähennys:", [InputRequired(), NumberRange(min=1, max=100000)])
+
+    class Meta:
+        csrf = False

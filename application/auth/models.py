@@ -4,16 +4,18 @@ class Kayttaja(db.Model):
     __tablename__ = "account"
 
     id = db.Column(db.Integer, primary_key=True)
-    luotu = db.Column(db.DateTime, default=db.func.current_timestamp())
-
     nimi = db.Column(db.String(144), nullable=False)
     username = db.Column(db.String(144), nullable=False)
     password = db.Column(db.String(144), nullable=False)
+    rooli = db.Column(db.String(20), nullable=False)
 
     lokit = db.relationship("Loki", backref='account', lazy=True)
 
-    def __init__(self, nimi):
+    def __init__(self, nimi, username, password):
         self.nimi = nimi
+        self.username = username
+        self.password = password
+        self.rooli = "NORMAALI"
 
     def get_id(self):
         return self.id
@@ -26,3 +28,11 @@ class Kayttaja(db.Model):
 
     def is_authenticated(self):
         return True
+
+    def is_admin(self):
+        if self.rooli == "ADMIN":
+            return True
+        else: return False
+
+    def role(self):
+        return self.rooli

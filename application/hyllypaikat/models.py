@@ -11,6 +11,8 @@ class Hyllypaikka(db.Model):
     maara = db.Column(db.Integer, default=0, nullable=False)
     kapasiteetti = db.Column(db.Integer)
 
+    lokit = db.relationship('Loki', backref='hyllypaikka', lazy=True)
+
     def __init__(self, paikkanumero, osasto, maara, tuotekoodi):
         self.paikkanumero = paikkanumero
         self.osasto = osasto
@@ -27,31 +29,22 @@ class Hyllypaikka(db.Model):
         res = db.engine.execute(stmt)
         hyllypaikka = []
 
-        print("alkaa")
-        for row in res:
-            print("eka row"+row[0])
-            print("toka row"+row[1])
-        print("loppuu")
 
-        if res:
-            # ei löytynyt - etsitään samalta osastolta tyhjä paikka
+        for row in res:
+            hyllypaikka.append({"paikkanumero":row[0], "maara":row[1]})
+
+        if hyllypaikka:
+            return hyllypaikka
+
+        # ei löytynyt - etsitään samalta osastolta tyhjä paikka
+        else:
             stmt = text("SELECT paikkanumero FROM hyllypaikka WHERE osasto = '"+tuote.kategoria+"' AND maara = 0 LIMIT 1;")
 
             res = db.engine.execute(stmt)
-            
+            print("TÄSSÄ RES--------------------")
+            print(res)
+            print("LOPPUU RES------------------")
             for row in res:
                 hyllypaikka.append({"paikkanumero":row[0], "maara":0})
 
             return hyllypaikka
-
-        else:
-            for row in res:
-                hyllypaikka.append({"paikkanumero":row[0], "maara":row[1]})
-
-            return hyllypaikka
-
-
-
-
-
-

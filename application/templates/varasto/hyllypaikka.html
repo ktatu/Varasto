@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table class="table table-bordered">
+    <tr>
+        <th>Paikkanumero</th>
+        <th>Osasto</th>
+        <th>Tuote</th>
+        <th>Määrä</th>
+        <th>Kapasiteetti</th>
+    </tr>
+    <tr>
+        <td>{{ hyllypaikka.paikkanumero }}</td>
+        <td>{{ hyllypaikka.osasto }}</td>
+        <td>{{ hyllypaikka.tuotekoodi }}</td>
+        <td>{{ hyllypaikka.maara }}</td>
+        <td>{{ hyllypaikka.kapasiteetti }}</td>
+    </tr>
+</table>
+<div class="d-flex row">
+    <div class="p-2">
+        <a href="{{ url_for('shelf_logs', paikkanumero=hyllypaikka.paikkanumero) }}">Tapahtumat</a>
+    </div>
+    <div class="p-2">
+        <form method="POST" action="{{ url_for('reduction', paikkanumero=hyllypaikka.paikkanumero, tuotekoodi=hyllypaikka.tuotekoodi) }}">
+            {{ form.vahennys.label }} {{ form.vahennys }} <input type="submit" value="Vähennä">
+        </form>
+    </div>
+</div>
+{% endblock %}
