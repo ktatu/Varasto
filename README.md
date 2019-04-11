@@ -4,6 +4,7 @@
 <h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
 <h3>Päivitys: Osa 5</h3>
 Tietokantakaavio päivitetty. Tuotteita voi vähentää hyllypaikoilta. Admin voi luoda uusia käyttäjätunnuksia ylälaidassa olevasta napista.
+Hyllypaikkojen tarkastelu ja saldovähennys tapahtuu toistaiseksi tuotehaun tuotteet-sivulta, eli ensin pitää hakea tuote. Koitan ensi viikoksi tehdä hakupalkin navbariin.
 
 <h2>Kuvaus</h2>
 <p>
