@@ -1,19 +1,35 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="d-flex justify-content-center">
-<h1>Ohjeet</h1>
-</div>
-<div class="d-flex align-items-start flex-column" style="height: 100px;">
-    <h3>Tapahtumat</h3>
-    <p>Kirjautunut käyttäjä näkee lokit suorittamistaan toiminnoista</p>
-</div>
-<div class="d-flex align-items-start flex-column" style="height: 100px;">
-    <h3>Tuotteet</h3>
-    <p>Uusien tuotteiden lisääminen, tuote-listaus, tuotetietojen tarkastelu, saldolisäys</p>
-</div>
-<div class="d-flex align-items-start flex-column" style="height: 100px;">
-    <h3>Hyllytys</h3>
-    <p>Tuotteiden hyllyttäminen</p>
+<div class="d-flex align-items-center">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <h1>Ohjeet</h1>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 100px;">
+            <h3>Tapahtumat</h3>
+            <p>Kirjautunut käyttäjä näkee lokit suorittamistaan toiminnoista.</p>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 100px;">
+            <h3>Tuotteet</h3>
+            <p>Uusien tuotteiden lisääminen, tuotelistaus, tuotetietojen tarkastelu, saldolisäys.</p>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 100px;">
+            <h3>Hyllytys</h3>
+            <p>Tuotteiden hyllyttäminen. Tyhjälle paikalle hyllytettäessä tulee määrittää kapasiteetti, eli paljonko paikalle mahtuisi kyseistä tuotetta.</p>
+        </div>
+        <div class="d-flex align-items-start flex-column" style="height: 100px;">
+            <h3>Haku</h3>
+            <p>Tuotteiden haku tuotekoodilla, hyllypaikat paikkanumerolla.</p>
+        </div>
+        {% if current_user.is_authenticated %}
+            {% if current_user.role() == "ADMIN" %}
+            <div class="d-flex align-items-start flex-column" style="height: 100px;">
+                <h3>Käyttäjätunnusten luonti</h3>
+                <p>Normaalitasoisten käyttäjätunnusten luonti, vain admineille. Käyttäjänimen tulee olla uniikki.</p>
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

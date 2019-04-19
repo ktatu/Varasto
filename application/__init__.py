@@ -44,7 +44,6 @@ def login_required(role="ANY"):
                     unauthorized = False
 
             if unauthorized:
-                print ("if unauthorized---------------------------------------")
                 return login_manager.unauthorized()
             
             return fn(*args, **kwargs)

@@ -12,7 +12,7 @@
     </tr>
     {% for tuote in tuotteet %}
     <tr>
-        <td>{{ tuote.tuotekoodi }}</td>
+        <td><a href="{{ url_for('tuotenakyma', tuotekoodi = tuote.tuotekoodi) }}">{{ tuote.tuotekoodi }}</a></td>
         <td>{{ tuote.nimi }}</td>
         <td>{{ tuote.maara }}</td>
         <td>{{ tuote.kategoria }}</td>

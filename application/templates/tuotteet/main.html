@@ -1,52 +1,36 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<!--
-<form method="POST" action="{{ url_for('tuotteet_haku') }}">
-    <div class="d-flex justfify-content-center">
-            <tr>
-                <th>{{ form.tuotekoodi.label }}</th><br>
-                <td>{{ form.tuotekoodi }}</td>
-                <input type="submit" class="btn btn-primary" name="nappi" value="Hae tuotetta"/>
-                <input type="submit" class="btn btn-primary" name="nappi" value="Lisää tuote"/>
-            </tr><br>
-            <tr>
-                <th>{{ form.maara.label }}</th><br>
-                <td>{{ form.maara }}</td>
-                <input type="submit" class="btn btn-primary" name="nappi" value="Lisää saldoon"/>
-            </tr>
-    </fieldset>
-</form>
--->
+<div class="d-flex align-items-center">
+    <div class="container text-center">
+    <form method="POST" action="{{ url_for('tuotteet_haku') }}">
+        <fieldset>
+            <legend>Tuotesivu</legend>
 
-<form method="POST" action="{{ url_for('tuotteet_haku') }}">
-    <fieldset>
-        <legend>Tuotesivu</legend>
+            <div class="form-group">
+                <p>
+                    {{ form.tuotekoodi.label }}
+                    {{ form.tuotekoodi }}
+                    <input type="submit" class="btn btn-primary" name="nappi" value="Hae tuotetta"/>
+                    <input type="submit" class="btn btn-primary" name="nappi" value="Lisää tuote"/>
+                </p>
+                <p>
+                    {{ form.maara.label }}
+                    {{ form.maara }}
+                    <input type="submit" class="btn btn-primary" name="nappi" value="Lisää saldoon"/>
+                </p>
+            </div>
+        </fieldset>
+    </form>
 
-        <div class="form-group">
-            <p>
-                {{ form.tuotekoodi.label }}
-                {{ form.tuotekoodi }}
-                <input type="submit" class="btn btn-primary" name="nappi" value="Hae tuotetta"/>
-                <input type="submit" class="btn btn-primary" name="nappi" value="Lisää tuote"/>
-            </p>
-            <p>
-                {{ form.maara.label }}
-                {{ form.maara }}
-                <input type="submit" class="btn btn-primary" name="nappi" value="Lisää saldoon"/>
-            </p>
-        </div>
-    </fieldset>
-</form>
-
-<form method="GET" action="{{ url_for('tuotteet_indeksi') }}">
-    <input type="submit" class="btn btn-primary" value="Listaa tuotteet"/>
-</form>
-{% for field, errors in form.errors.items() %}
-    <ul>
-        <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
-    </ul>
-{% endfor %}
-
-
+    <form method="GET" action="{{ url_for('tuotteet_indeksi') }}">
+        <input type="submit" class="btn btn-primary" value="Listaa tuotteet"/>
+    </form>
+    {% for field, errors in form.errors.items() %}
+        <ul>
+            <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+        </ul>
+    {% endfor %}
+    </div>
+</div>
 {% endblock %}

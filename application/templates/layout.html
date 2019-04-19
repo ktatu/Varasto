@@ -6,68 +6,83 @@
     <style>
         .container {
           max-width: 1000px;
+          align-self: center;
+          align-content: center;
+          margin-top: 5%;
         }
     </style>
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd;">
-          <a class="navbar-brand" href="{{ url_for('index') }}">Varasto</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('index') }}">Etusivulle<span class="sr-only">(current)</span></a>
-              </li>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('index') }}">Etusivulle<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('user_logs') }}">Tapahtumat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('tuotteet_etusivu') }}">Tuotteet</a>
+            </li>
+            <li>
+              <a class="nav-link" href="{{ url_for('varasto_to_shelf') }}">Hyllytys</a>
+            </li>
+            {% if current_user.is_authenticated %}
+              {% if current_user.role() == "ADMIN" %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('user_logs') }}">Tapahtumat</a>
+                <a class="nav-link" href="{{ url_for('create_user_form') }}">Luo käyttäjä</a>
               </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('tuotteet_etusivu') }}">Tuotteet</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('varasto_to_shelf') }}">Hyllytys</a>
-              </li>
-              {% if current_user.is_authenticated %}
-                {% if current_user.role() == "ADMIN" %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('create_user_form') }}">Luo käyttäjä</a>
-                </li>
-                {% endif %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
-                </li>
-              {% else %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
-                </li>
               {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
+              </li>
+            {% endif %}
             </ul>
           </div>
+          <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('index') }}">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-right: 10px;">
+                <label class="btn btn-outline-primary">
+                  <input type="radio" name="hakutyyppi" value="tuote" autocomplete="off"/>Tuote
+                </label>
+                <label class="btn btn-outline-primary">
+                    <input type="radio" name="hakutyyppi" value="hyllypaikka" autocomplete="off"/>Hyllypaikka
+                  </label>
+              </div>
+              <input type="text" class="form-control" name="hakukentta"/>
+              <input type="submit" class="btn btn-primary" name="hakunappi" value="Etsi"/>
+          </form>
         </nav>
-    
-  <main role="main" class="container">
     {% block body %}
       <p>
         Content.
       </p>
     {% endblock %}
-  </main>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-  <div class="alert alert-primary" role="alert">
-    <ul class=flashes>
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-  {% endif %}
-{% endwith %}
+<div class="d-flex align-items-center">
+  <div class="container">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-primary" role="alert">
+          <ul class=flashes>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>  
+      {% endif %}
+    {% endwith %}
   </div>
+</div>
 </html>

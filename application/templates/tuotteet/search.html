@@ -1,9 +1,8 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
+{% if tuote %}
 <table class="table table-bordered">
-    {% for tuote in tuote1 %}
     <tr>
         <th>Tuote</th>
         <th>Nimi</th>
@@ -18,8 +17,8 @@
         <td>{{ tuote.kategoria }}</td>
         <td>{{ tuote.kuvaus }}</td>
     </tr>
-    {% endfor %}
 </table>
+{% endif %}
 
 {% if hyllypaikat %}
 <div class="d-flex justify-content-center">

@@ -22,10 +22,12 @@
     <div class="p-2">
         <a href="{{ url_for('shelf_logs', paikkanumero=hyllypaikka.paikkanumero) }}">Tapahtumat</a>
     </div>
+    {% if hyllypaikka.tuotekoodi %}
     <div class="p-2">
         <form method="POST" action="{{ url_for('reduction', paikkanumero=hyllypaikka.paikkanumero, tuotekoodi=hyllypaikka.tuotekoodi) }}">
             {{ form.vahennys.label }} {{ form.vahennys }} <input type="submit" value="Vähennä">
         </form>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

@@ -7,13 +7,6 @@ from flask_login import login_required, current_user
 from application.lokit.models import Loki
 from application.hyllypaikat.models import Hyllypaikka
  
-# app.secret_key = 'salainen_avain'
-
-@app.route("/tuotteet/new")
-@login_required
-def tuotteet_lomake():
-    return render_template("tuotteet/new.html", form = TuoteForm())
-
 @app.route("/tuotteet/new", methods=["POST"])
 def tuotteet_palautus():
     return redirect(url_for('tuotteet_etusivu'))
@@ -61,12 +54,8 @@ def tuotteet_haku():
 
     # tuotehaku
     if request.form["nappi"] == "Hae tuotetta":
-
-        # workaround-ratkaisu, sama query kahdesti
         if tuote:
-            hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == koodi).all()
-            return render_template("tuotteet/search.html", tuote1 = db.session().query(Tuote).filter(Tuote.tuotekoodi==koodi), hyllypaikat = hyllypaikat)
-
+            return nayta_tuote(tuote)
         else:
             flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
             return redirect(url_for('tuotteet_etusivu'))
@@ -78,7 +67,9 @@ def tuotteet_haku():
             flash('Tuote ' + str(koodi) +' ei ole uusi, tee saldopäivitys')
             return redirect(url_for("tuotteet_etusivu"))
         else:
-            return redirect(url_for("tuotteet_lomake"))
+            tuoteForm = TuoteForm()
+            form.tuotekoodi = koodi
+            return render_template("/tuotteet/new.html", form = tuoteForm)
 
     # saldopäivitys
     else:
@@ -88,7 +79,6 @@ def tuotteet_haku():
             return render_template("tuotteet/main.html", form = form)
 
         if tuote:
-            
             tuote.maara = tuote.maara + lisattava
             tuote.hyllytettava = tuote.hyllytettava + lisattava
             loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava), current_user.id)
@@ -100,5 +90,18 @@ def tuotteet_haku():
         else:
             flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
 
-
         return redirect(url_for("tuotteet_etusivu"))
+
+# apumetodi tuotteet_haulle
+@app.route("/tuotteet/search", methods=["GET"])
+def nayta_tuote(parametriTuote):
+
+    return render_template("tuotteet/search.html", tuote = parametriTuote, 
+    hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == parametriTuote.tuotekoodi).all())
+
+# metodi listojen (esim. kaikkien tuotteiden listaus, tuotteet_indeksi) tuotelinkkejä varten
+@app.route("/tuotteet/<tuotekoodi>")
+def tuotenakyma(tuotekoodi):
+
+    return render_template("tuotteet/search.html", tuote = Tuote.query.filter(Tuote.tuotekoodi == tuotekoodi).first(), 
+    hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == tuotekoodi).all())

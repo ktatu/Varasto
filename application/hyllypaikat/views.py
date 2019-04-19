@@ -11,7 +11,7 @@ from application.lokit.models import Loki
 def varasto_mainpage():
     return render_template("/varasto/main.html")
 
-# sivu tuotteille jotka voidaan hyllyttää
+# sivu tuotteille jotka voidaan hyllyttää (tuote.hyllytettava > 0)
 @app.route("/varasto/hyllytettavat", methods=["GET"])
 @login_required
 def varasto_to_shelf():
@@ -111,6 +111,12 @@ def reduction(paikkanumero, tuotekoodi):
         loki = Loki(tuotekoodi, "Saldovähennys " + str(vahennys) + " paikkanumero " + paikkanumero, current_user.id)
         hyllypaikka.lokit.append(loki)
         tuote.maara -= vahennys
+
+        # tuote poistetaan hyllypaikalta kokonaan jos saldosta tulee 0
+        if hyllypaikka.maara == 0:
+            hyllypaikka.tuotekoodi == None
+            hyllypaikka.kapasiteetti == 0
+            tuote.hyllypaikat.remove(hyllypaikka)
 
         db.session().add(hyllypaikka)
         db.session().add(loki)
