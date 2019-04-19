@@ -1,9 +1,11 @@
 <h1>Varastojärjestelmä</h1>
 <h2>https://varastojarjestelma.herokuapp.com/</h2>
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
+<h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/luokkakaavio_varasto.png">Tietokantakaavio</a></h2>
 <h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
 <h3>Päivitys: Osa 5</h3>
 Tietokantakaavio päivitetty. Tuotteita voi vähentää hyllypaikoilta. Admin voi luoda uusia käyttäjätunnuksia ylälaidassa olevasta napista.
+Hyllypaikkojen tarkastelu ja saldovähennys tapahtuu toistaiseksi tuotehaun tuotteet-sivulta, eli ensin pitää hakea tuote. Koitan ensi viikoksi tehdä hakupalkin navbariin.
 
 <h2>Kuvaus</h2>
 <p>

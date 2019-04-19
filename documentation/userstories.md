@@ -18,6 +18,7 @@
 
 * Käyttäjänä suorittamistani toiminnoista jää loki järjestelmään
   - Saldolisäys
+  - Saldovähennys
   - Tuotelisäys
   - Hyllytys
   
@@ -26,10 +27,15 @@
 * Käyttäjänä voin tarkastella omia tapahtumiani
   - Ylälaidan nappi "Tapahtumat"
   
-### Päivitys osa 4:
-
 * Käyttäjänä voin hyllyttää tuotteita
-  - Rajoite: järjestelmä etsii samasta kategoriasta (osasto) hyllypaikan.
+  - Rajoite: järjestelmä etsii samasta kategoriasta (osasto) hyllypaikan
+  
+### Päivitys osa 5:
+
+* Adminina voin luoda uusia normaalitason käyttäjätunnuksia
+
+* Käyttäjänä voin tehdä saldovähennyksen hyllypaikalta
+  - Vähentää myös tuotteen kokonaissaldoa
 
 ## To do(?):
 
