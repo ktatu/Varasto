@@ -3,9 +3,8 @@
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/luokkakaavio_varasto.png">Tietokantakaavio</a></h2>
 <h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
-<h3>Päivitys: Osa 5</h3>
-Tietokantakaavio päivitetty. Tuotteita voi vähentää hyllypaikoilta. Admin voi luoda uusia käyttäjätunnuksia ylälaidassa olevasta napista.
-Hyllypaikkojen tarkastelu ja saldovähennys tapahtuu toistaiseksi tuotehaun tuotteet-sivulta, eli ensin pitää hakea tuote. Koitan ensi viikoksi tehdä hakupalkin navbariin.
+<h3>Päivitys: Osa 6</h3>
+Ulkoasua uudistettu, mutta osa sivuista vielä kesken ja komponentit ovat vähän miten sattuu. Yläpalkissa haku tuotteille ja hyllypaikoille, toimii tuotekoodilla ja paikkanumerolla.
 
 <h2>Kuvaus</h2>
 <p>
