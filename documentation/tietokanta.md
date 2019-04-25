@@ -1,10 +1,14 @@
-# Tietokantataulut
+# Tietokanta
 
-## Huomioitavaa
+## Tietokantakaavio
+
+### Huomioitavaa
 
 - Tauluissa Tuote ja Hyllypaikka esiintyy samoja piirteitä attribuuteissa, mutta kyse ei kuitenkaan ole denormalisoinnista:
   - Molemmissa on sarake "määrä", mutta Tuotteen määrä viittaa sen kokonaissaldoon ja Hyllypaikan määrä kyseisessä paikassa olevaan määrään. Samaa tuotetta voi olla useassa eri hyllypaikassa
-  - Kyseisten taulujen sarakkeet "kategoria" ja "osasto" viittaavat myös samaan asiaan, vain eri nimellä. Tarkoituksena on ohjata tuotteiden sijoittamista hyllypaikoille - kategorian "vapaa-aika" tuotteet menevät menevät hyllypaikoille, jotka kuuluvat osastoon "vapaa-aika" jne
+  - Kyseisten taulujen sarakkeet "kategoria" ja "osasto" viittaavat myös samaan asiaan, vain eri nimellä. Tarkoituksena on ohjata tuotteiden sijoittamista hyllypaikoille - kategorian "vapaa-aika" tuotteet menevät menevät hyllypaikoille, jotka kuuluvat osastoon "vapaa-aika" jne<br>
+  
+<img src="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/tietokantakaavio.png">
 
 ## CREATE TABLE-lauseet
 
