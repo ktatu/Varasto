@@ -8,17 +8,29 @@
 ## Käyttötapaukset
 * Normaalikäyttäjänä voin lisätä uuden tuotteen varastoon
   - Rajoite: ei onnistu, jos tuote on järjestelmässä
-  - SQL uusi tuote tauluun (luo_tuote(), tuotteet/views.py): 
-    - INSERT INTO Tuote (luotu, tuotekoodi, nimi, maara, kategoria, kuvaus, hyllytettava) VALUES (current_timestamp(), ?, ?, ?, ?, ?, ?);
-    - Attribuutin "hyllytettava" oletusarvo on 0, mutta views.py:n metodissa se asetetaan samaksi kuin määrä. Tuote-ilmentymä myös saa luotavan lokin attribuuttiin "lokit".
+  - SQL uusi tuote tauluun (luo_tuote(), tuotteet/views.py):
+    ```
+    INSERT INTO Tuote (luotu, muokattu, tuotekoodi, nimi, maara, kategoria, kuvaus, hyllytettava) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+    ```
 
 * Käyttäjänä voin listata kaikkien tuotteiden tiedot
-  - SQL (tuotteet_indeksi(), tuotteet/views.py): SELECT * FROM Tuote;
+  - SQL (tuotteet_indeksi(), tuotteet/views.py): 
+    ```
+    SELECT * FROM Tuote;
+    ```
 
 * Käyttäjänä voin hakea tietyn tuotteen tiedot tuotekoodilla
   - SQL (nayta_tuote(parametriTuote), tuotteet/views.py):
-    - Parametrina annettu tuote: SELECT * FROM Tuote WHERE Tuote.tuotekoodi = ? LIMIT 1;
-    - Tuotteen hyllypaikat: SELECT * FROM Hyllypaikka JOIN Tuote ON Tuote.tuotekoodi = Hyllypaikka.tuotekoodi WHERE Hyllypaikka.tuotekoodi = ?;
+    - Parametrina annettu tuote: 
+      ```
+      SELECT * FROM Tuote WHERE Tuote.tuotekoodi = ? LIMIT 1;
+      ```
+    - Tuotteen hyllypaikat: 
+      ```
+      SELECT * FROM Hyllypaikka JOIN Tuote ON Tuote.tuotekoodi = Hyllypaikka.tuotekoodi 
+      WHERE Hyllypaikka.tuotekoodi = ?;
+      ```
 
 * Käyttäjänä voin lisätä tuotteen saldoa tuotekoodin avulla
   - SQL (tuote_toiminnot(), tuotteet/views.py): UPDATE Tuote SET maara = ? WHERE tuotekoodi = ?;
