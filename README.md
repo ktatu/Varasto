@@ -10,6 +10,6 @@ Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varasto
 </p>
 
 <h3>Päivitys viikko 6</h3>
-Dokumentaatiota: SQL-lauseet käyttötapauksissa (user stories), tietokanta.md:ssä päivitetty tietokantakavio ja create table-lauseet. Sovelluksen etusivulla lyhyt (wip) ohjeistus.
+<p>Dokumentaatiota: SQL-lauseet käyttötapauksissa (user stories), tietokanta.md:ssä päivitetty tietokantakaavio ja create table-lauseet. Sovelluksen etusivulla lyhyt (wip) ohjeistus.</p>
 
 
