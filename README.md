@@ -9,5 +9,7 @@
 Yksinkertainen varastonhallintajärjestelmä. Järjestelmä koostuu itse varastosta (hyllypaikoista), käyttäjistä ja tuotteista. Normaalikäyttäjät voivat lisätä ja poistaa tuotteita hyllystä sekä tarkastella hylly- ja tuotetapahtumia. Admin-käyttäjät voivat lisäksi luoda uusia käyttäjiä
 </p>
 
+<h3>Päivitys viikko 6</h3>
+Dokumentaatiota: SQL-lauseet käyttötapauksissa (user stories), tietokanta.md:ssä päivitetty tietokantakavio ja create table-lauseet. Sovelluksen etusivulla lyhyt (wip) ohjeistus.
 
 
