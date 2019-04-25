@@ -1,8 +1,11 @@
-## User stories
+# User stories
 
-<p>Kunkin SQL-lauseen kohdalla lukee ensimmäisenä metodi jossa toiminto toteutuu ja toisena tiedostonimi</p>
-<p>Kaikissa sovelluksen INSERT-lauseissa aikaleimat ovat "default"-arvoja eikä niitä oikeasti metodeissa näy</p>
+## Huomioitavaa
+- Kunkin SQL-lauseen kohdalla lukee ensimmäisenä metodi jossa toiminto toteutuu ja toisena hakemistopolku alkaen kansiosta application
+- Kaikissa sovelluksen INSERT-lauseissa aikaleimat ovat "default"-arvoja eikä niitä itse metodeissa aseteta
+- Tietokantatauluilla Loki ja Käyttäjä pääavain id inkrementoituu automaattisesti, joten jätin ne SQL-lauseista pois
 
+## Käyttötapaukset
 * Normaalikäyttäjänä voin lisätä uuden tuotteen varastoon
   - Rajoite: ei onnistu, jos tuote on järjestelmässä
   - SQL uusi tuote tauluun (luo_tuote(), tuotteet/views.py): 
@@ -29,13 +32,13 @@
 
 * Käyttäjänä suorittamistani toiminnoista jää loki järjestelmään
   - Saldolisäys
-    - SQL (tuote_toiminnot(), tuotteet/views.py): INSERT INTO Loki (id, luotu, tuotekoodi, kuvaus, account_id) VALUES (?, current_timestamp(), ?, "saldopäivitys määrä ?", ?); 
+    - SQL (tuote_toiminnot(), tuotteet/views.py): INSERT INTO Loki (luotu, tuotekoodi, kuvaus, account_id) VALUES (current_timestamp(), ?, "saldopäivitys määrä ?", ?); 
   - Saldovähennys
-    - SQL (reduction(), hyllypaikat/views.py): INSERT INTO Loki (id, luotu, tuotekoodi, kuvaus, account_id, paikkanumero) VALUES (?, current_timestamp(), ?, "saldovähennys ? paikkanumero ?", ?, ?);
+    - SQL (reduction(), hyllypaikat/views.py): INSERT INTO Loki (luotu, tuotekoodi, kuvaus, account_id, paikkanumero) VALUES (current_timestamp(), ?, "saldovähennys ? paikkanumero ?", ?, ?);
   - Tuotelisäys
-    - SQL (luo_tuote(), tuotteet/views.py): INSERT INTO Loki (id, luotu, tuotekoodi, kuvaus, account_id) VALUES (?, current_timestamp(), ?, "tuotelisäys määrä ?", ?);
+    - SQL (luo_tuote(), tuotteet/views.py): INSERT INTO Loki (luotu, tuotekoodi, kuvaus, account_id) VALUES (current_timestamp(), ?, "tuotelisäys määrä ?", ?);
   - Hyllytys
-    - SQL (product_to_shelf(tuotekoodi, paikkanumero), hyllypaikat/views.py): INSERT INTO Loki (id, luotu, tuotekoodi, kuvaus, account_id, paikkanumero) VALUES (?, current_timestamp(), ?, "hyllysiirto määrä ? paikkanumero ?", ?, ?);
+    - SQL (product_to_shelf(tuotekoodi, paikkanumero), hyllypaikat/views.py): INSERT INTO Loki (luotu, tuotekoodi, kuvaus, account_id, paikkanumero) VALUES (current_timestamp(), ?, "hyllysiirto määrä ? paikkanumero ?", ?, ?);
   
 * Käyttäjänä joudun kirjautumaan sisään järjestelmään, jotta voin tehdä muutoksia
   - SQL käyttäjätunnusten etsintä (auth_login(), auth/views.py): 
@@ -48,7 +51,7 @@
   
 * Käyttäjänä voin hyllyttää tuotteita
   - Rajoite: järjestelmä etsii samasta kategoriasta (osasto) hyllypaikan
-  - SQL sopivan hyllypaikan etsintä: (find_shelf_location(tuote), hyllypaikat/models.py):
+  - SQL sopivan hyllypaikan etsintä (find_shelf_location(tuote), hyllypaikat/models.py):
     - Tarkistetaan löytyykö paikkaa missä on kyseistä tuotetta ja tilaa:
       - SELECT paikkanumero, maara FROM hyllypaikka WHERE Hyllypaikka.tuotekoodi = ? AND Hyllypaikka.maara + ? <= kapasiteetti LIMIT 1;
     - Jos ei löytynyt paikkaa edellisellä kyselyllä, etsitään tyhjä paikka:
@@ -63,16 +66,16 @@
     - Tarkistetaan ensin onko username käytössä:
       - SELECT * FROM Kayttaja WHERE username = ?;
     - Jos username vapaa:
-      - INSERT INTO Kayttaja (nimi, username, password) VALUES (?, ?, ?);
+      - INSERT INTO Kayttaja (nimi, username, password) VALUES ( ?, ?, ?);
 
 * Käyttäjänä voin tehdä saldovähennyksen hyllypaikalta
   - Vähentää myös tuotteen kokonaissaldoa
-  - Hyllypaikka josta vähennetään:
-    -
-  - - SQL (reduction(), hyllypaikat/views.py): UPDATE Hyllypaikka SET maara = ? WHERE paikkanumero = ?;
-
-## To do(?):
-
-* Tuotteen poisto hyllypaikalta
-
-* Admin-käyttäjä voi poistaa tuotteen tai muokata tuotetietoja
+  - SQL haetaan parametrien osoittamat hyllypaikka ja tuote (reduction(paikkanumero, tuotekoodi), hyllypaikat/views.py):
+    - SELECT * FROM Hyllypaikka WHERE paikkanumero = ?;
+    - SELECT * FROM Tuote WHERE tuotekoodi = ?;
+  - SQL jos hyllypaikka tyhjennettiin (sama metodi):
+    - UPDATE Hyllypaikka SET maara = 0, kapasiteetti = 0, tuotekoodi = NULL WHERE paikkanumero = ?;
+  - SQL jos hyllypaikalle jäi tavaraaa (sama metodi):
+    - UPDATE Hyllypaikka SET maara = Hyllypaikka.maara - ? WHERE paikkanumero = ?;
+  - SQL saldovähennys otetaan huomioon myös tuotteen kokonaissaldossa (sama metodi):
+    - UPDATE Tuote SET maara = Tuote.maara - ? WHERE tuotekoodi = ?;
