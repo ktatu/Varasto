@@ -38,11 +38,11 @@
               </li>
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
+                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
               </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjaudu sisään</a>
+                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
               </li>
             {% endif %}
             </ul>
