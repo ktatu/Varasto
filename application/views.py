@@ -32,7 +32,7 @@ def kasittele_haku(hakusyote, hakutyyppi):
     elif hakutyyppi == "hyllypaikka":
         hyllypaikka = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == int(hakusyote)).first()
         if hyllypaikka:
-            return redirect(url_for('show_shelf', paikkanumero = hyllypaikka.paikkanumero))
+            return redirect(url_for('nayta_hyllypaikka', paikkanumero = hyllypaikka.paikkanumero))
         else:
             flash('Hyllypaikkaa ei löytynyt')
             return render_template("index.html")
