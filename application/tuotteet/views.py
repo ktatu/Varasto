@@ -30,6 +30,7 @@ def luo_tuote():
     db.session().add(t)
     db.session().commit()
 
+    flash('Tuote '+str(form.tuotekoodi.data) + ' lisätty')
     return redirect(url_for("tuotteet_etusivu"))
 
 

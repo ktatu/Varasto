@@ -53,8 +53,8 @@ def hyllyta_tuote(tuotekoodi, paikkanumero):
     form = KapasiteettiForm(request.form)
      
     if hyllypaikka.maara == 0 and not form.kapasiteetti.validate(form):
-        flash('')
-        return render_template("varasto/hyllyyn.html", tuote = tuote, hyllypaikka = hyllypaikka, form = form)
+        flash('Kapasiteetin oltava vähintään 1, enintään 1000000')
+        return redirect(url_for("valitse_hyllypaikka", tuotekoodi = tuotekoodi))
 
 
     else:

@@ -11,7 +11,7 @@ class KapasiteettiForm(FlaskForm):
 
 class TuoteVahennys(FlaskForm):
 
-    vahennys = IntegerField("Saldovähennys:", [InputRequired(), NumberRange(min=1, max=100000)])
+    vahennys = IntegerField("Saldovähennys:", [InputRequired(message="Määritä kapasiteetti"), NumberRange(min=1, max=100000, message="Kapasiteetin oltava vähintään 1, enintään 100000")])
 
     class Meta:
         csrf = False
