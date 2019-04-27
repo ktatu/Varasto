@@ -1,24 +1,27 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-<table class="table table-bordered">
-    <tr>
-        <th>Tuote</th>
-        <th>Nimi</th>
-        <th>Määrä</th>
-        <th>Kategoria</th>
-        <th>Kuvaus</th>
-    </tr>
-    {% for tuote in tuotteet %}
-    <tr>
-        <td><a href="{{ url_for('tuotenakyma', tuotekoodi = tuote.tuotekoodi) }}">{{ tuote.tuotekoodi }}</a></td>
-        <td>{{ tuote.nimi }}</td>
-        <td>{{ tuote.maara }}</td>
-        <td>{{ tuote.kategoria }}</td>
-        <td>{{ tuote.kuvaus }}</td><br>
-    </tr>
-    {% endfor %}
-</table>
-
+<div class ="container text-center">
+    <h2>Varaston tuotteet</h2>
+</div>
+<div class="container" style="max-width: 1000px; align-content: center; margin-top: 25px;">
+    <table class="table table-bordered">
+        <tr>
+            <th>Tuote</th>
+            <th>Nimi</th>
+            <th>Määrä</th>
+            <th>Kategoria</th>
+            <th>Kuvaus</th>
+        </tr>
+        {% for tuote in tuotteet %}
+        <tr>
+            <td><a href="{{ url_for('tuotenakyma', tuotekoodi = tuote.tuotekoodi) }}">{{ tuote.tuotekoodi }}</a></td>
+            <td>{{ tuote.nimi }}</td>
+            <td>{{ tuote.maara }}</td>
+            <td>{{ tuote.kategoria }}</td>
+            <td>{{ tuote.kuvaus }}</td><br>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

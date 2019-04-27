@@ -23,26 +23,26 @@
               <a class="nav-link" href="{{ url_for('index') }}">Etusivulle<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('user_logs') }}">Tapahtumat</a>
+              <a class="nav-link" href="{{ url_for('kayttaja_lokit') }}">Omat tapahtumat</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('tuotteet_etusivu') }}">Tuotteet</a>
+              <a class="nav-link" href="{{ url_for('tuotteet_etusivu') }}">Tuotesivu</a>
             </li>
             <li>
-              <a class="nav-link" href="{{ url_for('varasto_to_shelf') }}">Hyllytys</a>
+              <a class="nav-link" href="{{ url_for('hyllytettavat_tuotteet') }}">Hyllytys</a>
             </li>
             {% if current_user.is_authenticated %}
               {% if current_user.role() == "ADMIN" %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('create_user_form') }}">Luo käyttäjä</a>
+                <a class="nav-link" href="{{ url_for('luo_kayttaja_lomake') }}">Luo käyttäjä</a>
               </li>
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
+                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
               </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('auth_login') }}">Kirjaudu sisään</a>
+                <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjaudu sisään</a>
               </li>
             {% endif %}
             </ul>

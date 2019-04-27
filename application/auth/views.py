@@ -28,29 +28,22 @@ def auth_logout():
 
 @app.route("/auth/create")
 @login_required(role="ADMIN")
-def create_user_form():
+def luo_kayttaja_lomake():
     return render_template("auth/create.html", form = CreateUserForm())
 
 @app.route("/auth/new", methods = ["POST"])
-def create_user():
+def luo_kayttaja():
     form = CreateUserForm(request.form)
 
-    print(form.nimi.data+"---------------")
-    print(form.username.data)
-    print(form.password.data+"------------")
-
     #if not form.validate():
-    #    print("ei validoitunut----------------------")
     #    return render_template("auth/create.html", form = form)
 
     checkIfExists = Kayttaja.query.filter(Kayttaja.username == form.username.data).first()
     if checkIfExists:
-        print("olemassa---------------------------------")
         flash('Käyttäjänimi on jo olemassa')
-        return redirect(url_for("create_user_form"))
+        return redirect(url_for("luo_kayttaja_lomake"))
 
     else:
-        print("ei olemassa--------------------------")
         kayttaja = Kayttaja(form.nimi.data, form.username.data, form.password.data)
         db.session().add(kayttaja)
         db.session().commit()

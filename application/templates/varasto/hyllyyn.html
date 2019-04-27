@@ -1,29 +1,26 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<table class="table table-bordered">
-    <tr>
-        <th>Tuotekoodi</th>
-        <th>Nimi</th>
-        <th>Määrä</th>
-        <th>Kategoria</th>
-        <th>Kuvaus</th>
-    </tr>
-    <tr>
-        <td>{{ tuote.tuotekoodi }}</td>
-        <td>{{ tuote.nimi }}</td>
-        <td>{{ tuote.hyllytettava }}</td>
-        <td>{{ tuote.kategoria }}</td>
-        <td>{{ tuote.kuvaus }}</td>
-    </tr>
-</table>
-<br>
-<br>
+
+<div class ="container" style="max-width: 1000px; align-content: center;">
+    <div class ="d-flex align-items-center">
+        <div class="row">
+            <ul>
+                <legend>Tuote</legend>
+                <li>Tuotekoodi: {{ tuote.tuotekoodi }}</li>
+                <li>Nimi: {{ tuote.nimi }}</li>
+                <li>Määrä: {{ tuote.hyllytettava }}</li>
+                <li>Kategoria: {{ tuote.kategoria }}</li>
+                <li>Kuvaus: {{ tuote.kuvaus }}</li>
+            </ul>
+        </div>
+    </div>
+
 <table class="table table-bordered">
     <tr>
         {% for hyllypaikka in paikka %}
-        <form method="POST" action="{{ url_for('product_to_shelf', tuotekoodi=tuote.tuotekoodi, paikkanumero=hyllypaikka.paikkanumero) }}">
-        <td>Paikkanumero: {{ hyllypaikka.paikkanumero }}</td>
+        <form method="POST" action="{{ url_for('hyllyta_tuote', tuotekoodi=tuote.tuotekoodi, paikkanumero=hyllypaikka.paikkanumero) }}">
+            <td>Paikkanumero: {{ hyllypaikka.paikkanumero }}</td>
         {% if hyllypaikka.maara == 0 %}
             <td>{{ form.kapasiteetti.label }} {{ form.kapasiteetti }}</td>
         {% endif %}
@@ -32,5 +29,5 @@
         {% endfor %}
     </tr>
 </table>
-
+</div>
 {% endblock %}

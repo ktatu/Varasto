@@ -1,36 +1,58 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class="d-flex align-items-center">
-    <div class="container text-center">
-    <form method="POST" action="{{ url_for('tuotteet_haku') }}">
-        <fieldset>
-            <legend>Tuotesivu</legend>
+<div class="d-flex justify-content-center" style="margin-top: 5%;">
+    <div class="d-flex justify-content-start">
+        <form method="POST" action="{{ url_for('tuote_toiminnot') }}">
+            <fieldset>
+                <legend>Tuotesivu</legend>
 
-            <div class="form-group">
-                <p>
-                    {{ form.tuotekoodi.label }}
-                    {{ form.tuotekoodi }}
-                    <input type="submit" class="btn btn-primary" name="nappi" value="Hae tuotetta"/>
-                    <input type="submit" class="btn btn-primary" name="nappi" value="Lisää tuote"/>
-                </p>
-                <p>
-                    {{ form.maara.label }}
-                    {{ form.maara }}
-                    <input type="submit" class="btn btn-primary" name="nappi" value="Lisää saldoon"/>
-                </p>
-            </div>
-        </fieldset>
-    </form>
+                <div class="form-group">
+                    <p>
+                        {{ form.tuotekoodi.label }}
+                        {{ form.tuotekoodi }}
+                        <input type="submit" class="btn btn-primary" name="nappi" value="Hae tuotetta"/>
+                        <input type="submit" class="btn btn-primary" name="nappi" value="Lisää tuote"/>
+                    </p>
+                    <p>
+                        {{ form.maara.label }}
+                        {{ form.maara }}
+                        <input type="submit" class="btn btn-primary" name="nappi" value="Lisää saldoon"/>
+                    </p>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+        {% for field, errors in form.errors.items() %}
+            <ul>
+                <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+            </ul>
+        {% endfor %}
+</div>
 
+<div class="d-flex justify-content-center">
     <form method="GET" action="{{ url_for('tuotteet_indeksi') }}">
         <input type="submit" class="btn btn-primary" value="Listaa tuotteet"/>
     </form>
-    {% for field, errors in form.errors.items() %}
-        <ul>
-            <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
-        </ul>
-    {% endfor %}
-    </div>
 </div>
+
+{% if tuote %}
+<div class="d-flex justify-content-center">
+    <ul class="list-group" style="margin: 50px;">
+        <li class="list-group-item active">Tuote</li>
+        <li class="list-group-item">Tuotekoodi: {{ tuote.tuotekoodi }}</li>
+        <li class="list-group-item">Nimi: {{ tuote.nimi }}</li>
+        <li class="list-group-item">Määrä: {{ tuote.maara }}</li>
+        <li class="list-group-item">Kategoria: {{ tuote.kategoria }}</li>
+        <li class="list-group-item">Kuvaus: {{ tuote.kuvaus }}</li>
+        {% for hyllypaikka in hyllypaikat %}
+        <li class="list-group-item"><a href="{{ url_for('nayta_hyllypaikka', paikkanumero=hyllypaikka.paikkanumero) }}">Hyllypaikka: {{ hyllypaikka.paikkanumero }}</a></li>
+        {% endfor %}
+        {% if not hyllypaikat %}
+        <li class="list-group-item">Ei hyllypaikkoja</li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
 {% endblock %}

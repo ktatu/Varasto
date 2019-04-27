@@ -2,26 +2,27 @@
 
 
 {% block body %}
-
-<table class="table table-bordered">
-    <tr>
-        <th>Tuotekoodi</th>
-        <th>Nimi</th>
-        <th>Määrä</th>
-        <th>Kategoria</th>
-        <th>Kuvaus</th>
-    </tr>
-    {% for tuote in tuotteet %}
-    <tr>
-        <td>{{ tuote.tuotekoodi }}</td>
-        <td>{{ tuote.nimi }}</td>
-        <td>{{ tuote.hyllytettava }}</td>
-        <td>{{ tuote.kategoria }}</td>
-        <td>{{ tuote.kuvaus }}</td>
-        <form method="GET" action="{{ url_for('choose_shelf', tuotekoodi=tuote.tuotekoodi) }}">
-            <td><input type="submit" value="Hyllyyn"></td>
-        </form>
-    </tr>
-    {% endfor %}
-</table>
+<div class="container" style="max-width: 1000px; align-content: center; margin-top: 50px;">
+    <table class="table table-bordered">
+        <tr>
+            <th>Tuotekoodi</th>
+            <th>Nimi</th>
+            <th>Määrä</th>
+            <th>Kategoria</th>
+            <th>Kuvaus</th>
+        </tr>
+        {% for tuote in tuotteet %}
+        <tr>
+            <td>{{ tuote.tuotekoodi }}</td>
+            <td>{{ tuote.nimi }}</td>
+            <td>{{ tuote.hyllytettava }}</td>
+            <td>{{ tuote.kategoria }}</td>
+            <td>{{ tuote.kuvaus }}</td>
+            <form method="GET" action="{{ url_for('valitse_hyllypaikka', tuotekoodi=tuote.tuotekoodi) }}">
+                <td><input type="submit" value="Hyllyyn"></td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}

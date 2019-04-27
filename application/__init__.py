@@ -39,7 +39,7 @@ def login_required(role="ANY"):
             if role != "ANY":
                 unauthorized = True
                 
-                # sovelluksessa 1 rooli per käyttäjä, joten ei looppia
+                # sovelluksessa 1 rooli per user, joten ei looppia
                 if current_user.role() == role:
                     unauthorized = False
 

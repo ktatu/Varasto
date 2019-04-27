@@ -1,20 +1,20 @@
 from application import app, db
 from flask import Flask, render_template, request, before_render_template, flash, redirect, url_for
 from sqlalchemy.sql.expression import exists
-from flask_login import login_required, current_user
+from flask_login import current_user, login_required
 from application.tuotteet.models import Tuote
 from application.hyllypaikat.models import Hyllypaikka
 from application.hyllypaikat.forms import KapasiteettiForm, TuoteVahennys
 from application.lokit.models import Loki
 
 @app.route("/varasto/main")
-def varasto_mainpage():
+def varasto_etusivu():
     return render_template("/varasto/main.html")
 
 # sivu tuotteille jotka voidaan hyllyttää (tuote.hyllytettava > 0)
 @app.route("/varasto/hyllytettavat", methods=["GET"])
 @login_required
-def varasto_to_shelf():
+def hyllytettavat_tuotteet():
 
     tuotteet = Tuote.query.filter(Tuote.hyllytettava != 0).all()
     print(tuotteet)
@@ -27,7 +27,7 @@ def varasto_to_shelf():
 # hyllytyssivu
 @app.route("/varasto/hyllyyn/<tuotekoodi>/", methods=["GET"])
 @login_required
-def choose_shelf(tuotekoodi):
+def valitse_hyllypaikka(tuotekoodi):
 
     tuoteHyllyyn = db.session().query(Tuote).filter(Tuote.tuotekoodi == tuotekoodi).first()
     hyllypaikka = Hyllypaikka.find_shelf_location(tuoteHyllyyn)
@@ -37,12 +37,12 @@ def choose_shelf(tuotekoodi):
 
     else:
         flash('Tuotteelle '+str(tuoteHyllyyn.tuotekoodi) +' ei ole vapaana hyllypaikkoja')
-        return redirect(url_for('varasto_to_shelf'))
+        return redirect(url_for('hyllytettavat_tuotteet'))
 
 # toteuttaa hyllytyksen
 @app.route("/varasto/hyllyyn/<tuotekoodi>/<paikkanumero>/", methods=["POST"])
 @login_required
-def product_to_shelf(tuotekoodi, paikkanumero):
+def hyllyta_tuote(tuotekoodi, paikkanumero):
 
     # keksi miten palautttaa oliot tuote ja hyllypaikka sivulta / choose_self-metodilta ilman uutta hakua
     tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == tuotekoodi).first()
@@ -51,7 +51,7 @@ def product_to_shelf(tuotekoodi, paikkanumero):
     tuote.hyllypaikat.append(hyllypaikka)
 
     form = KapasiteettiForm(request.form)
-    # 
+     
     if hyllypaikka.maara == 0 and not form.kapasiteetti.validate(form):
         flash('')
         return render_template("varasto/hyllyyn.html", tuote = tuote, hyllypaikka = hyllypaikka, form = form)
@@ -63,7 +63,7 @@ def product_to_shelf(tuotekoodi, paikkanumero):
         hyllypaikka.kapasiteetti = form.kapasiteetti.data
         hyllypaikka.maara += tuote.hyllytettava
 
-        loki = Loki(tuote.tuotekoodi, "Hyllysiirto +"+str(tuote.hyllytettava)+ " paikkanumero "+str(hyllypaikka.paikkanumero), current_user.id)
+        loki = Loki(tuote.tuotekoodi, "Hyllysiirto määrä "+str(tuote.hyllytettava)+ " paikkanumero "+str(hyllypaikka.paikkanumero), current_user.id, paikkanumero)
         hyllypaikka.lokit.append(loki)
 
         tuote.muokattu = db.func.current_timestamp()
@@ -75,12 +75,12 @@ def product_to_shelf(tuotekoodi, paikkanumero):
         db.session().commit()
 
         flash('Hyllytys onnistui')
-        return redirect(url_for('varasto_to_shelf'))
+        return redirect(url_for('hyllytettavat_tuotteet'))
 
 # näyttää hyllypaikan
 @app.route("/varasto/<paikkanumero>", methods=["GET"])
 @login_required
-def show_shelf(paikkanumero):
+def nayta_hyllypaikka(paikkanumero):
 
     hyllypaikka = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == paikkanumero).first()
 
@@ -94,7 +94,7 @@ def show_shelf(paikkanumero):
 # saldovähennys hyllypaikalla
 @app.route("/varasto/<paikkanumero>/<tuotekoodi>", methods=["POST"])
 @login_required
-def reduction(paikkanumero, tuotekoodi):
+def saldo_vahenna(paikkanumero, tuotekoodi):
 
     hyllypaikka = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == paikkanumero).first()
     tuote = Tuote.query.filter(Tuote.tuotekoodi == tuotekoodi).first()
@@ -104,11 +104,11 @@ def reduction(paikkanumero, tuotekoodi):
 
     if vahennys > hyllypaikka.maara:
         flash('Yritit vähentää ' + str(vahennys) + ", kun hyllyssä on " + str(hyllypaikka.maara))
-        return redirect(url_for('show_shelf', paikkanumero = hyllypaikka.paikkanumero))
+        return redirect(url_for('nayta_hyllypaikka', paikkanumero = hyllypaikka.paikkanumero))
 
     else:
         hyllypaikka.maara -= vahennys
-        loki = Loki(tuotekoodi, "Saldovähennys " + str(vahennys) + " paikkanumero " + paikkanumero, current_user.id)
+        loki = Loki(tuotekoodi, "Saldovähennys " + str(vahennys) + " paikkanumero " + paikkanumero, current_user.id, paikkanumero)
         hyllypaikka.lokit.append(loki)
         tuote.maara -= vahennys
 
@@ -124,7 +124,7 @@ def reduction(paikkanumero, tuotekoodi):
         db.session().commit()
 
         flash('Saldovähennys onnistui')
-        return redirect(url_for('show_shelf', paikkanumero = hyllypaikka.paikkanumero))
+        return redirect(url_for('nayta_hyllypaikka', paikkanumero = hyllypaikka.paikkanumero))
 
 
 

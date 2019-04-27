@@ -1,38 +1,27 @@
 {% extends "layout.html" %}
 
 {% block body %}
-{% if tuote %}
-<table class="table table-bordered">
-    <tr>
-        <th>Tuote</th>
-        <th>Nimi</th>
-        <th>Määrä</th>
-        <th>Kategoria</th>
-        <th>Kuvaus</th>
-    </tr>
-    <tr>
-        <td>{{ tuote.tuotekoodi }}</td>
-        <td>{{ tuote.nimi }}</td>
-        <td>{{ tuote.maara }}</td>
-        <td>{{ tuote.kategoria }}</td>
-        <td>{{ tuote.kuvaus }}</td>
-    </tr>
-</table>
-{% endif %}
 
-{% if hyllypaikat %}
-<div class="d-flex justify-content-center">
-<ul class="list-group">
-    <li class="list-group-item active">Hyllypaikat</li>
-    {% for hyllypaikka in hyllypaikat %}
-    <li class="list-group-item"><a href="{{ url_for('show_shelf', paikkanumero=hyllypaikka.paikkanumero) }}">{{ hyllypaikka.paikkanumero }}</a></li>
-    {% endfor %}
-</ul>
-{% else %}
-<br><p>Tuotetta ei ole hyllyssä</p>
+<div class="d-flex justify-content-center" style="margin-top: 10%;">
+    <div class="d-flex align-items-stretch">
+            <ul class="list-group" style="margin: 50px;">
+                    <li class="list-group-item active">Tuote</li>
+                    <li class="list-group-item">Tuotekoodi: {{ tuote.tuotekoodi }}</li>
+                    <li class="list-group-item">Nimi: {{ tuote.nimi }}</li>
+                    <li class="list-group-item">Määrä: {{ tuote.maara }}</li>
+                    <li class="list-group-item">Kategoria: {{ tuote.kategoria }}</li>
+                    <li class="list-group-item">Kuvaus: {{ tuote.kuvaus }}</li>
+            </ul>
+            <ul class="list-group" style="margin: 50px;">
+                    <li class="list-group-item active">Hyllypaikat</li>
+                    {% for hyllypaikka in hyllypaikat %}
+                    <li class="list-group-item"><a href="{{ url_for('nayta_hyllypaikka', paikkanumero=hyllypaikka.paikkanumero) }}">{{ hyllypaikka.paikkanumero }}</a></li>
+                    {% endfor %}
+                    {% if not hyllypaikat %}
+                    <li class="list-group-item">Ei hyllypaikkoja</li>
+                    {% endif %}
+                </ul>
+    </div>
 </div>
-{% endif %}
-
-
 
 {% endblock %}

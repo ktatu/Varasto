@@ -8,14 +8,14 @@ from application.hyllypaikat.models import Hyllypaikka
  # kirjautuneen käyttäjän lokit
 @app.route("/lokit/userlogs")
 @login_required
-def user_logs():
+def kayttaja_lokit():
 
     return render_template("/lokit/userlogs.html", lokit = current_user.lokit)
 
  # hyllypaikan lokit
 @app.route("/lokit/<paikkanumero>")
 @login_required
-def shelf_logs(paikkanumero):
+def hyllypaikka_lokit(paikkanumero):
 
     hyllypaikka = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == paikkanumero).first()
 

@@ -23,7 +23,8 @@ def luo_tuote():
     t = Tuote(form.tuotekoodi.data, form.nimi.data, form.maara.data, form.kategoria.data, form.kuvaus.data)
     t.hyllytettava = form.maara.data
 
-    loki = Loki(form.tuotekoodi.data, "tuotelisäys määrä "+str(form.maara.data), current_user.id)
+    loki = Loki(form.tuotekoodi.data, "tuotelisäys määrä "+str(form.maara.data), current_user.id, None)
+    t.lokit.append(loki)
 
     db.session().add(loki)
     db.session().add(t)
@@ -43,7 +44,7 @@ def tuotteet_etusivu():
 
 @app.route("/tuotteet/main", methods=["POST"])
 @login_required
-def tuotteet_haku():
+def tuote_toiminnot():
 
     form = mainPageForm(request.form)
     koodi = form.tuotekoodi.data
@@ -55,7 +56,7 @@ def tuotteet_haku():
     # tuotehaku
     if request.form["nappi"] == "Hae tuotetta":
         if tuote:
-            return nayta_tuote(tuote)
+            return nayta_tuote(tuote, form)
         else:
             flash('Tuotetta ' + str(koodi) + ' ei ole varastossa')
             return redirect(url_for('tuotteet_etusivu'))
@@ -71,7 +72,7 @@ def tuotteet_haku():
             form.tuotekoodi = koodi
             return render_template("/tuotteet/new.html", form = tuoteForm)
 
-    # saldopäivitys
+    # saldolisäys
     else:
 
         lisattava = form.maara.data
@@ -81,7 +82,7 @@ def tuotteet_haku():
         if tuote:
             tuote.maara = tuote.maara + lisattava
             tuote.hyllytettava = tuote.hyllytettava + lisattava
-            loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava), current_user.id)
+            loki = Loki(koodi, "saldopäivitys määrä "+str(lisattava), current_user.id, None)
 
             db.session().add(loki)
             db.session().commit()
@@ -92,11 +93,11 @@ def tuotteet_haku():
 
         return redirect(url_for("tuotteet_etusivu"))
 
-# apumetodi tuotteet_haulle
+# apumetodi tuote_toiminnoille
 @app.route("/tuotteet/search", methods=["GET"])
-def nayta_tuote(parametriTuote):
+def nayta_tuote(parametriTuote, form):
 
-    return render_template("tuotteet/search.html", tuote = parametriTuote, 
+    return render_template("tuotteet/main.html", form = form, tuote = parametriTuote, 
     hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == parametriTuote.tuotekoodi).all())
 
 # metodi listojen (esim. kaikkien tuotteiden listaus, tuotteet_indeksi) tuotelinkkejä varten

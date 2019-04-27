@@ -1,24 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-<table class="table table-bordered">
-    <tr>
-        <th>Loki_Id</th>
-        <th>Ajankohta</th>
-        <th>Tuotekoodi</th>
-        <th>Kuvaus</th>
-        <th>Käyttäjä_Id</th>
-    </tr>
-{% for loki in lokit %}
-    <tr>
-        <td>{{ loki.id }}</td>
-        <td>{{ loki.luotu }}</td>
-        <td>{{ loki.tuotekoodi }}</td>
-        <td>{{ loki.kuvaus }}</td>
-        <td>{{ loki.account_id }}</td>
-    </tr>
-{% endfor %}
-</table>
-
+<div class="container" style="max-width: 1000px; align-content: center; margin-top: 50px;">
+    <table class="table table-bordered">
+        <tr>
+            <th>Loki_Id</th>
+            <th>Ajankohta</th>
+            <th>Tuotekoodi</th>
+            <th>Kuvaus</th>
+            <th>Käyttäjä_Id</th>
+        </tr>
+    {% for loki in lokit %}
+        <tr>
+            <td>{{ loki.id }}</td>
+            <td>{{ loki.luotu }}</td>
+            <td>{{ loki.tuotekoodi }}</td>
+            <td>{{ loki.kuvaus }}</td>
+            <td>{{ loki.account_id }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
 {% endblock %}

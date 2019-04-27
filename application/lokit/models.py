@@ -10,7 +10,8 @@ class Loki(db.Model):
     account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
     paikkanumero = db.Column(db.Integer, db.ForeignKey('hyllypaikka.paikkanumero'))
 
-    def __init__(self, tuotekoodi, kuvaus, account_id):
+    def __init__(self, tuotekoodi, kuvaus, account_id, paikkanumero):
         self.tuotekoodi = tuotekoodi
         self.kuvaus = kuvaus
         self.account_id = account_id
+        self.paikkanumero = paikkanumero
