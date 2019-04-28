@@ -17,7 +17,17 @@
             <td>{{ loki.kuvaus }}</td>
             <td>{{ loki.account_id }}</td>
         </tr>
-        {% endfor %}
+        {% endfor %}        
     </table>
+</div>
+
+<div class="d-flex justify-content-center">
+    {% if edellinen_sivu %}
+    <p style="margin: 10px;"><a href="{{ edellinen_sivu }}">Uudemmat lokit</a></p>
+    {% endif %}
+
+    {% if seuraava_sivu %}
+    <p style="margin: 10px;"><a href="{{ seuraava_sivu }}">Vanhemmat lokit</a></p>
+    {% endif %}
 </div>
 {% endblock %}
