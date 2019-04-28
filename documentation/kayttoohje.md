@@ -1,6 +1,6 @@
 # Käyttöohje
 
-<p>Sovellukssa navigointi pohjautuu ylävalikkoon, josta pääsee suoraan tärkeisiin toimintoihin. Etusivulla on lyhyt kuvaus kustakin napista. Rekisteröityminen ei ole mahdollista, mutta admin voi luoda uusia käyttäjätunnuksia.</p>
+<p>Sovelluksessa navigointi pohjautuu ylävalikkoon, josta pääsee suoraan tärkeisiin toimintoihin. Etusivulla on lyhyt kuvaus kustakin napista. Rekisteröityminen ei ole mahdollista, mutta admin voi luoda uusia käyttäjätunnuksia.</p>
 <img src="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/navbar.png">
 
 ## Sisäänkirjautuminen
@@ -56,4 +56,11 @@ Tuotetiedot                |  Hyllypaikkatiedot
 ### <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivu1.png">Tuotesivu</a>
 
 - Käyttäjä voi <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/listaus.png">listata</a> kaikkien tuotteiden tiedot painamalla tuotesivun nappia "Listaa tuotteet". Jokaisen tuotekoodin kohdalla on linkki kyseisen tuotteen omalla tuotesivulle, josta löytää myös mahdolliset hyllypaikat. Listaus sisältää myös tuotteet joiden määrä varastolla on 0.
-- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/saldolisays.png">Saldolisäys</a> tehdään kun jo varaston tietokannassa olevaa tuotetta on tullut lisää. Syötä yläkenttään tuotekoodi, alakenttään tullut määrä ja paina "Lisää saldoon". Uusi erä tuotetta täytyy hyllyttää aivan kuin muutkin tuotteet.
+
+- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/saldolisays.png">Saldolisäys</a> tehdään, kun jo varaston tietokannassa olevaa tuotetta on tullut lisää. Syötä yläkenttään tuotekoodi, alakenttään tullut määrä ja paina "Lisää saldoon". Uusi erä tuotetta täytyy hyllyttää aivan kuin muutkin tuotteet.
+
+- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivuhaku.png">Tuotehaun</a> voi tehdä myös tuotesivulla kirjoittamalla yläkenttään tuotekoodin ja painamalla "Hae tuotetta". Tuotteen tiedot ilmestyvät suoraan tuotesivulle.
+
+### Lokit
+
+- Varaston tietokantaan vaikuttavista toimista, kuten uuden tuotteen lisäämisestä ja saldovähennyksestä jää tapahtumaloki tietokantaan. Kirjautunut käyttäjä näkee <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/omattapahtumat.png">omat tapahtumansa</a> painamalla ylävalikon nappia "Omat tapahtumat". Hyllypaikkaan liittyviä tapahtumia voi tarkastella navigoimalla <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/hyllypaikkatiedot.png">hyllypaikan tietoihin</a> ja painamalla "Tapahtumat".
