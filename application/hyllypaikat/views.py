@@ -44,7 +44,6 @@ def valitse_hyllypaikka(tuotekoodi):
 @login_required
 def hyllyta_tuote(tuotekoodi, paikkanumero):
 
-    # keksi miten palautttaa oliot tuote ja hyllypaikka sivulta / choose_self-metodilta ilman uutta hakua
     tuote = db.session().query(Tuote).filter(Tuote.tuotekoodi == tuotekoodi).first()
     hyllypaikka = db.session().query(Hyllypaikka).filter(Hyllypaikka.paikkanumero == paikkanumero).first()
 
@@ -60,7 +59,11 @@ def hyllyta_tuote(tuotekoodi, paikkanumero):
     else:
         hyllypaikka.tuotekoodi = tuote.tuotekoodi
         hyllypaikka.muokattu = db.func.current_timestamp()
-        hyllypaikka.kapasiteetti = form.kapasiteetti.data
+
+        # jos hyllypaikka oli tyhjä, niin käyttäjä määrittää kapasiteetin, muutoin hyllypaikalla on jo kapasiteetti jota ei tarvitse muuttaa
+        if hyllypaikka.maara == 0:
+            hyllypaikka.kapasiteetti = form.kapasiteetti.data
+
         hyllypaikka.maara += tuote.hyllytettava
 
         loki = Loki(tuote.tuotekoodi, "Hyllysiirto määrä "+str(tuote.hyllytettava)+ " paikkanumero "+str(hyllypaikka.paikkanumero), current_user.id, paikkanumero)
