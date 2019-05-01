@@ -23,6 +23,7 @@ class Hyllypaikka(db.Model):
     def find_shelf_location(tuote):
 
         # tarkistetaan onko kyseistä tuotetta hyllyssä ja samassa paikassa tilaa vielä
+        # ei parametreja mutta wtforms tarkistaa että käyttäjäsyöte on kokonaislukuja - injektion ei pitäisi onnistua
         stmt = text("SELECT paikkanumero, maara FROM hyllypaikka WHERE tuotekoodi = "+str(tuote.tuotekoodi) + 
         " AND hyllypaikka.maara + "+str(tuote.hyllytettava) + " <= kapasiteetti LIMIT 1;")
 
@@ -41,9 +42,6 @@ class Hyllypaikka(db.Model):
             stmt = text("SELECT paikkanumero FROM hyllypaikka WHERE osasto = '"+tuote.kategoria+"' AND maara = 0 LIMIT 1;")
 
             res = db.engine.execute(stmt)
-            print("TÄSSÄ RES--------------------")
-            print(res)
-            print("LOPPUU RES------------------")
             for row in res:
                 hyllypaikka.append({"paikkanumero":row[0], "maara":0})
 

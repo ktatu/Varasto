@@ -2,26 +2,43 @@
 
 {% block body %}
 
-<div class="d-flex justify-content-center" style="margin-top: 10%;">
+<div class="d-flex justify-content-center" style="margin-top: 5%;">
     <div class="d-flex align-items-stretch">
-            <ul class="list-group" style="margin: 50px;">
-                    <li class="list-group-item active">Tuote</li>
-                    <li class="list-group-item">Tuotekoodi: {{ tuote.tuotekoodi }}</li>
-                    <li class="list-group-item">Nimi: {{ tuote.nimi }}</li>
-                    <li class="list-group-item">Määrä: {{ tuote.maara }}</li>
-                    <li class="list-group-item">Kategoria: {{ tuote.kategoria }}</li>
-                    <li class="list-group-item">Kuvaus: {{ tuote.kuvaus }}</li>
-            </ul>
-            <ul class="list-group" style="margin: 50px;">
-                    <li class="list-group-item active">Hyllypaikat</li>
-                    {% for hyllypaikka in hyllypaikat %}
-                    <li class="list-group-item"><a href="{{ url_for('nayta_hyllypaikka', paikkanumero=hyllypaikka.paikkanumero) }}">{{ hyllypaikka.paikkanumero }}</a></li>
-                    {% endfor %}
-                    {% if not hyllypaikat %}
-                    <li class="list-group-item">Ei hyllypaikkoja</li>
-                    {% endif %}
-                </ul>
+        <ul class="list-group" style="margin: 20px;">
+            <li class="list-group-item active">Tuote</li>
+            <li class="list-group-item">Tuotekoodi: {{ tuote.tuotekoodi }}</li>
+            <li class="list-group-item">Nimi: {{ tuote.nimi }}</li>
+            <li class="list-group-item">Määrä: {{ tuote.maara }}</li>
+            <li class="list-group-item">Kategoria: {{ tuote.kategoria }}</li>
+            <li class="list-group-item">Kuvaus: {{ tuote.kuvaus }}</li>
+        </ul>
+        <ul class="list-group" style="margin: 20px;">
+            <li class="list-group-item active">Hyllypaikat</li>
+            {% for hyllypaikka in hyllypaikat %}
+            <li class="list-group-item"><a href="{{ url_for('nayta_hyllypaikka', paikkanumero=hyllypaikka.paikkanumero) }}">{{ hyllypaikka.paikkanumero }}</a></li>
+            {% endfor %}
+            {% if not hyllypaikat %}
+            <li class="list-group-item">Ei hyllypaikkoja</li>
+            {% endif %}
+        </ul>
     </div>
 </div>
+
+{% if current_user.role() == "ADMIN" %}
+<div class="container justify-content-center"> 
+    <div class="d-flex" style="margin-bottom: 10px;">
+                <a href="{{ url_for('paivita_tuote_lomake', tuotekoodi = tuote.tuotekoodi) }}">Päivitä tuotetietoja</a>
+    </div>
+    <div class="d-flex">
+        <form method="POST" action="{{ url_for('poista_tuote', tuotekoodi=tuote.tuotekoodi) }}">
+                <p>Poistaaksesi tuotteen kirjoita tuotekoodi ja paina "Poista". Hyllytetty saldo ja tuotteen lokit katoavat poiston yhteydessä.</p>
+                <label>{{ form.tuotekoodi.label }}</label>
+                <p>{{ form.tuotekoodi }}</p>
+                <input type="submit" class="btn btn-primary" value="Poista"/>
+        </form>
+    </div>
+</div>
+</div>
+{% endif %}
 
 {% endblock %}

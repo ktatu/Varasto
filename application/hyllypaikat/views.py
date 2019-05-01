@@ -117,8 +117,7 @@ def saldo_vahenna(paikkanumero, tuotekoodi):
 
         # tuote poistetaan hyllypaikalta kokonaan jos saldosta tulee 0
         if hyllypaikka.maara == 0:
-            hyllypaikka.tuotekoodi == None
-            hyllypaikka.kapasiteetti == 0
+            hyllypaikka.kapasiteetti = 0
             tuote.hyllypaikat.remove(hyllypaikka)
 
         db.session().add(hyllypaikka)

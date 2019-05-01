@@ -2,7 +2,7 @@
 
 {% block body %}
 <div class="d-flex justify-content-center" style="margin-top: 5%;">
-    <form method="POST" action="{{ url_for('luo_tuote') }}">
+    <form method="POST" action="{{ url_for('paivita_tuote', tuotekoodi = vanha_tuotekoodi) }}">
         <fieldset>
             <legend>Tuoteinformaatio:</legend>
                 <tr>
@@ -13,10 +13,6 @@
                     <th>{{ form.nimi.label }}</th>
                     <td>{{ form.nimi }}</td>
                 </tr>
-                <tr>
-                    <th>{{ form.maara.label }}</th>
-                    <td>{{ form.maara }}</td>
-                </tr>
                 <br>
                 <tr>
                     <th>{{ form.kategoria.label }}</th>
@@ -26,7 +22,7 @@
                     <th>{{ form.kuvaus.label }}</th>
                     <td>{{ form.kuvaus }}</td>
                 </tr><br>
-                <input type="submit" name="nappi" value="Luo uusi tuote"/><br>
+                <input type="submit" name="nappi" value="Päivitä"/>
             <td>
                 <ul>
                     {% for field, errors in form.errors.items() %}

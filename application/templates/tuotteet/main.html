@@ -36,23 +36,4 @@
     </form>
 </div>
 
-{% if tuote %}
-<div class="d-flex justify-content-center">
-    <ul class="list-group" style="margin: 50px;">
-        <li class="list-group-item active">Tuote</li>
-        <li class="list-group-item">Tuotekoodi: {{ tuote.tuotekoodi }}</li>
-        <li class="list-group-item">Nimi: {{ tuote.nimi }}</li>
-        <li class="list-group-item">Määrä: {{ tuote.maara }}</li>
-        <li class="list-group-item">Kategoria: {{ tuote.kategoria }}</li>
-        <li class="list-group-item">Kuvaus: {{ tuote.kuvaus }}</li>
-        {% for hyllypaikka in hyllypaikat %}
-        <li class="list-group-item"><a href="{{ url_for('nayta_hyllypaikka', paikkanumero=hyllypaikka.paikkanumero) }}">Hyllypaikka: {{ hyllypaikka.paikkanumero }}</a></li>
-        {% endfor %}
-        {% if not hyllypaikat %}
-        <li class="list-group-item">Ei hyllypaikkoja</li>
-        {% endif %}
-    </ul>
-</div>
-{% endif %}
-
 {% endblock %}

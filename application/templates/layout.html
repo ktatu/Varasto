@@ -6,8 +6,6 @@
     <style>
         .container {
           max-width: 1000px;
-          align-self: center;
-          align-content: center;
           margin-top: 5%;
         }
     </style>
@@ -32,11 +30,6 @@
               <a class="nav-link" href="{{ url_for('hyllytettavat_tuotteet') }}">Hyllytys</a>
             </li>
             {% if current_user.is_authenticated %}
-              {% if current_user.role() == "ADMIN" %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('luo_kayttaja_lomake') }}">Luo käyttäjä</a>
-              </li>
-              {% endif %}
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('auth_logout') }}">Kirjautunut nimellä {{ current_user.nimi }} -- Kirjaudu ulos</a>
               </li>
@@ -47,6 +40,20 @@
             {% endif %}
             </ul>
           </div>
+
+          {% if current_user.is_authenticated and current_user.role() == "ADMIN" %}
+          <div class="form-inline dropdown" style="margin-right: 25px;">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="{{ url_for('luo_kayttaja_lomake') }}">Luo käyttäjä</a>
+              <a class="dropdown-item" href="#">Poista tuote</a>
+              <a class="dropdown-item" href="#">Luo hyllypaikka</a>
+              <a class="dropdown-item" href="#">Poista hyllypaikka</a>
+            </div>
+          </div>
+          {% endif %}
           <form class="form-inline my-2 my-lg-0" method="POST" action="{{ url_for('index') }}">
               <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-right: 10px;">
                 <label class="btn btn-outline-primary">
