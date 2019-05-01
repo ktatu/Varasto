@@ -105,18 +105,7 @@
     UPDATE Hyllypaikka SET tuotekoodi = ?, muokattu = current_timestamp(), kapasiteetti = ?, maara = ? 
     WHERE paikkanumero = ?;
     ```
-
-* Adminina voin luoda uusia normaalitason käyttäjätunnuksia
-  - SQL uusi käyttäjä tauluun (create_user(), auth/views.py):
-    - Tarkistetaan ensin onko username käytössä:
-      ```
-      SELECT * FROM Kayttaja WHERE username = ?;
-      ```
-    - Jos username vapaa:
-      ```
-      INSERT INTO Kayttaja (nimi, username, password) VALUES ( ?, ?, ?);
-      ```
-
+    
 * Käyttäjänä voin tehdä saldovähennyksen hyllypaikalta
   - Vähentää myös tuotteen kokonaissaldoa
   - SQL haetaan parametrien osoittamat hyllypaikka ja tuote (reduction(paikkanumero, tuotekoodi), hyllypaikat/views.py):
@@ -138,3 +127,49 @@
     ```
     UPDATE Tuote SET maara = Tuote.maara - ? WHERE tuotekoodi = ?;
     ```
+    
+### Admin
+
+* Adminina voin luoda uusia normaalitason käyttäjätunnuksia
+  - SQL uusi käyttäjä tauluun (create_user(), auth/views.py):
+    - Tarkistetaan ensin onko username käytössä:
+      ```
+      SELECT * FROM Kayttaja WHERE username = ?;
+      ```
+    - Jos username vapaa:
+      ```
+      INSERT INTO Kayttaja (nimi, username, password) VALUES ( ?, ?, ?);
+      ```
+      
+* Adminina voin poistaa tuotteen varastosta
+  - Poistaa myös kaikki tuotteeseen liittyvät lokit ja mahdollisen saldon hyllypaikoilla
+  - SQL poisto (poista_tuote(tuotekoodi), tuotteet/views.py):
+    - Hyllypaikat joissa tuotetta on pitää päivittää (määrä ja kapasiteetti nollaksi, tuotekoodi null):
+      ```
+      SELECT * FROM hyllypaikka WHERE tuotekoodi = ?;
+      UPDATE hyllypaikka SET maara = 0, kapasiteetti = 0 WHERE tuotekoodi = ?, tuotekoodi = NULL
+      ```
+    - Tuotteeseen liittyvät lokit poistetaan:
+      ```
+      DELETE * FROM loki WHERE tuotekoodi = ?;
+      ```
+    - Lopuksi tuote poistetaan:
+      ```
+      DELETE * FROM tuote WHERE tuotekoodi = ?;
+      ```
+* Adminina voin päivittää tuotteen tietoja
+  - Päivityksellä ei voi muuttaa määrää - saldovähennys ja -päivitys ovat tätä varten
+  - SQL päivitys (paivita_tuote_lomake(tuotekoodi), paivita_tuote(tuotekoodi), tuotteet/views.py):
+    - Haetaan päivitettävä tuote sekä tarkistetaan onko uusi tuotekoodi jo käytössä:
+      ```
+      SELECT * FROM tuote WHERE tuotekoodi = ?:
+      ```
+    - Päivitetään tuote-taulu:
+      ```
+      UPDATE tuote SET tuotekoodi = ?, nimi = ?, kategoria = ?, kuvaus = ? WHERE tuotekoodi = ?;
+      ```
+    - Jos tuotekoodi muuttui niin loki ja hyllypaikka päivitetään:
+      ```
+      UPDATE hyllypaikka SET tuotekoodi = ? WHERE tuotekoodi = ?;
+      UPDATE loki SET tuotekoodi = ? WHERE tuotekoodi = ?;
+      ```
