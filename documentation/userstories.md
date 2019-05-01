@@ -138,7 +138,7 @@
       ```
     - Jos username vapaa:
       ```
-      INSERT INTO Kayttaja (nimi, username, password) VALUES ( ?, ?, ?);
+      INSERT INTO Kayttaja (nimi, username, password) VALUES (?, ?, ?);
       ```
       
 * Adminina voin poistaa tuotteen varastosta
@@ -172,4 +172,15 @@
       ```
       UPDATE hyllypaikka SET tuotekoodi = ? WHERE tuotekoodi = ?;
       UPDATE loki SET tuotekoodi = ? WHERE tuotekoodi = ?;
+      ```
+      
+* Adminina voin luoda uusia hyllypaikkoja
+  - SQL luonti (hyllypaikka_lomake(), luo_hyllypaikka(), hyllypaikat/views.py)
+    - Varmistetaan että syötetty paikkanumero ei ole käytössä:
+      ```
+      SELECT * FROM hyllypaikka WHERE paikkanumero = ?
+      ```
+    - Uusi hyllypaikka tietokantaan:
+      ```
+      INSERT INTO hyllypaikka (paikkanumero, muokattu, osasto, tuotekoodi, maara) VALUES (?, current_timestamp(), ?, NULL, '0');
       ```
