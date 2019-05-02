@@ -133,7 +133,7 @@ def tuote_toiminnot():
 
         return redirect(url_for("tuotteet_etusivu"))
 
-@app.route("/tuotteet/delete", methods=["POST"])
+@app.route("/tuotteet/delete/<tuotekoodi>", methods=["POST"])
 @login_required
 def poista_tuote(tuotekoodi):
 

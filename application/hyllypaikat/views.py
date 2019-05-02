@@ -147,7 +147,7 @@ def luo_hyllypaikka():
     form = HyllypaikkaForm(request.form)
 
     if not form.validate():
-        return redirect(url_for('hyllypaikka_lomake'))
+        return render_template("varasto/new.html", form = form)
 
     # tarkistetaan onko kyseinen paikkanumero käytössä
     paikkanumero = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == form.paikkanumero.data).first()
