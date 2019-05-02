@@ -1,6 +1,6 @@
 # Asennusohje
 
-Ennen kuin teet mitään muuta varmista että koneellasi on python asennettuna (testattu vain versiolla 3.6.7). Ohje on tarkoitettu Ubuntulle, mutta sovelluksen saa testatusti toimimaan myös <a href="https://gitforwindows.org/">Windowsilla</a>. Jotkut kansioiden ja tiedostojen nimet saattavat kuitenkin olla eriävät.
+Ennen kuin teet mitään muuta varmista että koneellasi on python asennettuna (testattu vain versiolla 3.6.7). Ohje on tarkoitettu Ubuntulle (18.04), mutta sovelluksen saa testatusti toimimaan myös <a href="https://gitforwindows.org/">Windowsilla</a>. Jotkut kansioiden ja tiedostojen nimet saattavat kuitenkin olla eriävät.
 
 ## Sovelluksen käyttöönotto paikallisesti
 
