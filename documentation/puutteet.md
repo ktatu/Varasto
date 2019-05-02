@@ -3,6 +3,7 @@
 - Vain taulussa tuote on täysi CRUD. Hyllypaikoista puuttuu tietojen muokkaus ja poistaminen
 - Ei monesta moneen-suhdetta tietokannassa
 - Tietokannassa olevien taulujen nimet eivät mene aivan yksi yhteen koodissa olevien kanssa joissain kohdissa. Esim. tietokannassa käyttäjistä vastaa taulu "account", mutta siihen saatetaan viitata Käyttäjänä.
+- Salasanoja ei kryptattu
 
 ## Huomioitavaa
 
