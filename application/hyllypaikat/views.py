@@ -4,22 +4,29 @@ from sqlalchemy.sql.expression import exists
 from flask_login import current_user, login_required
 from application.tuotteet.models import Tuote
 from application.hyllypaikat.models import Hyllypaikka
-from application.hyllypaikat.forms import KapasiteettiForm, TuoteVahennys
+from application.hyllypaikat.forms import KapasiteettiForm, TuoteVahennys, HyllypaikkaForm
 from application.lokit.models import Loki
 
 @app.route("/varasto/main")
 def varasto_etusivu():
     return render_template("/varasto/main.html")
 
-# sivu tuotteille jotka voidaan hyllyttää (tuote.hyllytettava > 0)
+# hyllytettävät tuotteet (tuote.hyllytettava > 0)
 @app.route("/varasto/hyllytettavat", methods=["GET"])
 @login_required
 def hyllytettavat_tuotteet():
 
-    tuotteet = Tuote.query.filter(Tuote.hyllytettava != 0).all()
-    print(tuotteet)
+    sivu = request.args.get('sivu', 1, type=int)
+    tuotteet = Tuote.query.filter(Tuote.hyllytettava != 0).paginate(sivu, 8, False)
+
+    edellinen_sivu = url_for('hyllytettavat_tuotteet', sivu = tuotteet.prev_num) \
+        if tuotteet.has_prev else None
+
+    seuraava_sivu = url_for('hyllytettavat_tuotteet', sivu = tuotteet.next_num) \
+        if tuotteet.has_next else None
+
     if tuotteet:
-        return render_template("/varasto/hyllytettavat.html", tuotteet = tuotteet)
+        return render_template("/varasto/hyllytettavat.html", tuotteet = tuotteet.items, edellinen_sivu = edellinen_sivu, seuraava_sivu = seuraava_sivu)
     else:
         flash('Ei hyllytettäviä tuotteita')
         return redirect(url_for('index'))
@@ -128,6 +135,33 @@ def saldo_vahenna(paikkanumero, tuotekoodi):
         flash('Saldovähennys onnistui')
         return redirect(url_for('nayta_hyllypaikka', paikkanumero = hyllypaikka.paikkanumero))
 
+@app.route("/varasto/new")
+@login_required
+def hyllypaikka_lomake():
+    form = HyllypaikkaForm()
+    return render_template("varasto/new.html", form = form)
+
+@app.route("/varasto/new", methods=["POST"])
+@login_required
+def luo_hyllypaikka():
+    form = HyllypaikkaForm(request.form)
+
+    if not form.validate():
+        return redirect(url_for('hyllypaikka_lomake'))
+
+    # tarkistetaan onko kyseinen paikkanumero käytössä
+    paikkanumero = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == form.paikkanumero.data).first()
+
+    if paikkanumero:
+        flash('Paikkanumero on jo käytössä')
+        return redirect(url_for('hyllypaikka_lomake'))
+
+    hyllypaikka = Hyllypaikka(form.paikkanumero.data, form.osasto.data, 0, None)
+    db.session().add(hyllypaikka)
+    db.session().commit()
+
+    flash('Hyllypaikka luotu')
+    return redirect(url_for('index'))
 
 
 

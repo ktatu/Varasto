@@ -66,7 +66,17 @@ def paivita_tuote(tuotekoodi):
 @app.route("/tuotteet", methods=["GET"])
 @login_required
 def tuotteet_indeksi():
-    return render_template("tuotteet/list.html", tuotteet = Tuote.query.all())
+
+    sivu = request.args.get('sivu', 1, type=int)
+    tuotteet = Tuote.query.paginate(sivu, 12, False)
+
+    edellinen_sivu = url_for('tuotteet_indeksi', sivu = tuotteet.prev_num) \
+        if tuotteet.has_prev else None
+
+    seuraava_sivu = url_for('tuotteet_indeksi', sivu = tuotteet.next_num) \
+        if tuotteet.has_next else None
+
+    return render_template("tuotteet/list.html", tuotteet = tuotteet.items, edellinen_sivu = edellinen_sivu, seuraava_sivu = seuraava_sivu)
 
 @app.route("/tuotteet/main")
 def tuotteet_etusivu():
@@ -176,5 +186,6 @@ def tuotenakyma(tuotekoodi):
 
     return render_template("tuotteet/search.html", tuote = Tuote.query.filter(Tuote.tuotekoodi == tuotekoodi).first(), 
     hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == tuotekoodi).all(), form = PoistoForm())
+
 
 

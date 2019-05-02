@@ -25,4 +25,14 @@
         {% endfor %}
     </table>
 </div>
+
+<div class="d-flex justify-content-center">
+    {% if edellinen_sivu %}
+    <p style="margin: 10px;"><a href="{{ edellinen_sivu }}">Edellinen sivu</a></p>
+    {% endif %}
+    
+    {% if seuraava_sivu %}
+    <p style="margin: 10px;"><a href="{{ seuraava_sivu }}">Seuraava sivu</a></p>
+    {% endif %}
+</div>
 {% endblock %}

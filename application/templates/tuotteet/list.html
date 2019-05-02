@@ -1,27 +1,38 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<div class ="container text-center">
-    <h2>Varaston tuotteet</h2>
+<div class="container">
+    <div class="d-flex align-items-center">
+        <h2>Tuotteet</h2>
+    </div>
+    <div class="d-flex align-items-center">
+        <table class="table table-bordered">
+            <tr>
+                <th>Tuote</th>
+                <th>Nimi</th>
+                <th>Määrä</th>
+                <th>Kategoria</th>
+                <th>Kuvaus</th>
+            </tr>
+            {% for tuote in tuotteet %}
+            <tr>
+                <td><a href="{{ url_for('tuotenakyma', tuotekoodi = tuote.tuotekoodi) }}">{{ tuote.tuotekoodi }}</a></td>
+                <td>{{ tuote.nimi }}</td>
+                <td>{{ tuote.maara }}</td>
+                <td>{{ tuote.kategoria }}</td>
+                <td>{{ tuote.kuvaus }}</td><br>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>   
 </div>
-<div class="container" style="max-width: 1000px; align-content: center; margin-top: 25px;">
-    <table class="table table-bordered">
-        <tr>
-            <th>Tuote</th>
-            <th>Nimi</th>
-            <th>Määrä</th>
-            <th>Kategoria</th>
-            <th>Kuvaus</th>
-        </tr>
-        {% for tuote in tuotteet %}
-        <tr>
-            <td><a href="{{ url_for('tuotenakyma', tuotekoodi = tuote.tuotekoodi) }}">{{ tuote.tuotekoodi }}</a></td>
-            <td>{{ tuote.nimi }}</td>
-            <td>{{ tuote.maara }}</td>
-            <td>{{ tuote.kategoria }}</td>
-            <td>{{ tuote.kuvaus }}</td><br>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<div class="d-flex justify-content-center">
+        {% if edellinen_sivu %}
+        <p style="margin: 10px;"><a href="{{ edellinen_sivu }}">Edellinen sivu</a></p>
+        {% endif %}
+    
+        {% if seuraava_sivu %}
+        <p style="margin: 10px;"><a href="{{ seuraava_sivu }}">Seuraava sivu</a></p>
+        {% endif %}
+    </div>
 {% endblock %}

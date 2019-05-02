@@ -48,9 +48,7 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a class="dropdown-item" href="{{ url_for('luo_kayttaja_lomake') }}">Luo käyttäjä</a>
-              <a class="dropdown-item" href="#">Poista tuote</a>
-              <a class="dropdown-item" href="#">Luo hyllypaikka</a>
-              <a class="dropdown-item" href="#">Poista hyllypaikka</a>
+              <a class="dropdown-item" href="{{ url_for('hyllypaikka_lomake') }}">Luo hyllypaikka</a>
             </div>
           </div>
           {% endif %}
@@ -77,19 +75,19 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 
-<div class="d-flex align-items-center">
-  <div class="container">
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="alert alert-primary" role="alert">
-          <ul class=flashes>
-            {% for message in messages %}
-              <li>{{ message }}</li>
-            {% endfor %}
-          </ul>
-        </div>  
-      {% endif %}
-    {% endwith %}
+  <div class="d-flex align-items-center">
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="alert alert-primary" role="alert">
+            <ul class=flashes>
+              {% for message in messages %}
+                <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          </div>  
+        {% endif %}
+      {% endwith %}
+    </div>
   </div>
-</div>
 </html>

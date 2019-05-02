@@ -25,8 +25,8 @@
         {% if current_user.is_authenticated %}
             {% if current_user.role() == "ADMIN" %}
             <div class="d-flex align-items-start flex-column">
-                <h3>Käyttäjätunnusten luonti</h3>
-                <p>Normaalitasoisten käyttäjätunnusten luonti, vain admineille. Käyttäjänimen tulee olla uniikki.</p>
+                <h3>Admin</h3>
+                <p>Normaalitasoisten käyttäjätunnusten ja hyllypaikkojen luonti.</p>
             </div>
             {% endif %}
         {% endif %}

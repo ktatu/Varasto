@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="d-flex justify-content-center" style="margin-top: 5%;">
+    <form method="POST" action="#">
+        <fieldset>
+            <legend>Informaatio:</legend>
+                <tr>
+                    <th>{{ form.paikkanumero.label }}</th>
+                    <td>{{ form.paikkanumero }}</td>
+                </tr><br>
+                <tr>
+                    <th>{{ form.osasto.label }}</th>
+                    <td>{{ form.osasto }}</td>
+                </tr>
+                <br>
+                <input type="submit" name="nappi" value="Luo hyllypaikka"/><br>
+            <td>
+                <ul>
+                    {% for field, errors in form.errors.items() %}
+                    <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

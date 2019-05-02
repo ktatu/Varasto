@@ -1,7 +1,8 @@
 from application import app, db
+from sqlalchemy import Index
 
 class Tuote(db.Model):
-    tuotekoodi = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    tuotekoodi = db.Column(db.Integer, primary_key=True, autoincrement=False, index=True)
     luotu = db.Column(db.DateTime, default=db.func.current_timestamp())
     muokattu = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())

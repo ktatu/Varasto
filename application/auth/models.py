@@ -1,21 +1,22 @@
 from application import db
+from sqlalchemy import Index
 
 class Kayttaja(db.Model):
     __tablename__ = "account"
 
-    id = db.Column(db.Integer, primary_key=True)
-    nimi = db.Column(db.String(144), nullable=False)
-    username = db.Column(db.String(144), nullable=False)
-    password = db.Column(db.String(144), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    nimi = db.Column(db.String(144), nullable=False, index=True)
+    username = db.Column(db.String(144), nullable=False, index=True)
+    password = db.Column(db.String(144), nullable=False, index=True)
     rooli = db.Column(db.String(20), nullable=False)
 
     lokit = db.relationship("Loki", backref='account', lazy=True)
 
-    def __init__(self, nimi, username, password):
+    def __init__(self, nimi, username, password, rooli="NORMAALI"):
         self.nimi = nimi
         self.username = username
         self.password = password
-        self.rooli = "NORMAALI"
+        self.rooli = rooli
 
     def get_id(self):
         return self.id

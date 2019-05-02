@@ -1,13 +1,14 @@
-from application import db
+from application import app, db
 from sqlalchemy.sql import text
+from sqlalchemy import Index
 
 class Hyllypaikka(db.Model):
-    paikkanumero = db.Column(db.Integer, primary_key=True, autoincrement=False)
+    paikkanumero = db.Column(db.Integer, primary_key=True, autoincrement=False, index=True)
     muokattu = db.Column(db.DateTime, default=db.func.current_timestamp(),
     onupdate=db.func.current_timestamp())
 
-    osasto = db.Column(db.String(20), nullable=False)
-    tuotekoodi = db.Column(db.Integer, db.ForeignKey('tuote.tuotekoodi'))
+    osasto = db.Column(db.String(20), nullable=False, index=True)
+    tuotekoodi = db.Column(db.Integer, db.ForeignKey('tuote.tuotekoodi'), index=True)
     maara = db.Column(db.Integer, default=0, nullable=False)
     kapasiteetti = db.Column(db.Integer)
 

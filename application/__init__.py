@@ -70,7 +70,13 @@ from application.auth.models import Kayttaja
 def load_user(user_id):
     return Kayttaja.query.get(user_id)
 
+
 try:
     db.create_all()
+
+    admin = Kayttaja('admin', 'admin', 'admin', 'ADMIN')
+    db.session().add(admin)
+    db.session.commit()
+
 except:
     pass
