@@ -12,11 +12,11 @@ Kaikki asennusohjeen komennot suoritetaan hakemistossa tsoha
    - Komento ```deactivate``` sammuttaa virtuaaliympäristön
 4. Asenna riippuvuudet komennolla ```pip -r requirements.txt```
 
-Sovelluksen pitäisi nyt käynnistyä komennolla ```python run.py```. Käynnistä sovellus kerran, jotta tietokanta alustuu ennen kuin jatkat.
+Sovelluksen pitäisi nyt käynnistyä komennolla ```python run.py```. Tietokanta alustuu ensimmäisen käynnistyksen yhteydessä. Admin-tunnusten käyttäjänimi ja salasana ovat admin.
 
-### Admin-tunnukset
+### Lisää Admin-tunnuksia
 
-Sovelluksen toimintoja varten tarvitaan käyttäjätunnukset. Syötä seuraavat lauseet komentorivillä, alkaen hakemistosta tsoha:
+Uusia admin-tason käyttäjätunnuksia voi luoda seuraavasti:
 1. ```sqlite3 application/varasto.db```
 2. ```INSERT INTO account (nimi, username, password, rooli) VALUES ('nimi', 'username', 'password', 'ADMIN');```
    - Voit itse valita sanan VALUES jälkeen tulevat arvot nimi, username ja password. Muista kuitenkin laittaa hipsut (') sanojen ympärille.
@@ -56,4 +56,3 @@ heroku addons:add heroku-postgresql:hobby-dev
 
 Herokusta käynnistettäessä sovellus hyödyntää psgql:ää, paikallisesti käynnistettäessä sqliteä. Joudut muokkaamaan application-kansion tiedostoa __init__.py, jos haluat muuttaa tätä. <a href="https://materiaalit.github.io/tsoha-19/osa3/">Materiaalin osan 3 kappaleen 4</a> tutkiminen voi auttaa asiassa.
 
-Psql:ssä ei myöskään ole valmiiksi käyttäjätunnuksia, vaan ne täytyy tehdä itse. Ylläoleva materiaalin linkki auttaa myös tässä.
