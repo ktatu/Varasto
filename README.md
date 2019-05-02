@@ -4,7 +4,7 @@
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/userstories.md">User stories</a></h2>
 <h2><a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/tietokanta.md">Tietokantakuvaus</a></h2>
 <h2>https://varastojarjestelma.herokuapp.com/</h2>
-<h3>Heroku: Käyttäjänimi = testi salasana = kayttaja</h3>
+<h3>Heroku: Käyttäjänimi = admin salasana = admin</h3>
 
 <h2>Kuvaus</h2>
 <p>
