@@ -52,3 +52,21 @@
       FOREIGN KEY(tuotekoodi) REFERENCES tuote (tuotekoodi),
       FOREIGN KEY (account_id) REFERENCES account (id),
       FOREIGN KEY (paikkanumero) REFERENCES hyllypaikka (paikkanumero));
+      
+## Indeksit
+
+### tuote 
+- tuotekoodi: Tuotteita etsitään ja listataan tuotekoodin perusteella
+
+### account 
+- id: Ei varsinaisesti käyttöä sovelluksesa tällä hetkellä
+- nimi, username, password: Käyttäjätunnuksia luodessa etsitään onko nimi käytössä, kaikkia kolmea haetaan sisäänkirjautumisen yhteydessä tietokannasta
+
+### hyllypaikka
+- paikkanumero: Esim. hyllypaikan tietojen listauksessa etsitään paikkanumeron perusteella tietokannasta
+- osasto, tuotekoodi: Hyllytettävälle tuotteelle hyllypaikkaa etsittäessä rajausehtona käytetään ensin tuotekoodia ja osastoa, toisessa kyselyssä osastoa jos 1. ei tuota tuloksia
+
+### loki
+- account_id: Rajausehto käyttäjän lokeja etsittäessä
+- paikkanumero: Rajausehto hyllypaikan lokeja etsittäessä
+- luotu (desc): Lokit järjestetään ajan mukaan, uusimmat ensin
