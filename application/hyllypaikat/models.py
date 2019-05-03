@@ -60,7 +60,7 @@ class Hyllypaikka(db.Model):
         osastot = []
 
         for row in res:
-            osastot.append({"osasto":row[0], "maara":row[1], "osuus":row[2]*1.0})
+            osastot.append({"osasto":row[0], "maara":row[1], "osuus":float(row[2])})
 
         return osastot
 
