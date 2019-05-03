@@ -177,14 +177,6 @@ def paivita_tuote_lomake(tuotekoodi):
 
     return render_template("/tuotteet/update.html", form = form, vanha_tuotekoodi = tuotekoodi)
 
-# apumetodi tuote_toiminnoille
-@app.route("/tuotteet/search", methods=["GET"])
-def nayta_tuote(parametri_tuote, form):
-
-    return render_template("tuotteet/main.html", form = form, tuote = parametri_tuote, 
-    hyllypaikat = Hyllypaikka.query.join(Tuote).filter(Hyllypaikka.tuotekoodi == parametri_tuote.tuotekoodi).all())
-
-
 # metodi listojen (esim. kaikkien tuotteiden listaus, tuotteet_indeksi) tuotelinkkejä varten
 @app.route("/tuotteet/<tuotekoodi>")
 def tuotenakyma(tuotekoodi):

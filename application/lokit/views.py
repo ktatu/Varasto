@@ -6,7 +6,7 @@ from application import app, db
 from application.lokit.models import Loki
 from application.hyllypaikat.models import Hyllypaikka
 
- # kirjautuneen käyttäjän lokit, sisältää sivutuksen
+ # kirjautuneen käyttäjän lokit
 @app.route("/lokit/userlogs")
 @login_required
 def kayttaja_lokit():
@@ -26,7 +26,6 @@ def kayttaja_lokit():
 @login_required
 def hyllypaikka_lokit(paikkanumero):
 
-#    hyllypaikka = Hyllypaikka.query.filter(Hyllypaikka.paikkanumero == paikkanumero).first()
 
     sivu = request.args.get('sivu', 1, type=int)
     lokit = Loki.query.filter(Loki.paikkanumero == paikkanumero).order_by(Loki.luotu.desc()).paginate(sivu, 12, False)
@@ -40,7 +39,6 @@ def hyllypaikka_lokit(paikkanumero):
     if lokit:
         return render_template("/lokit/shelflogs.html", lokit = lokit.items, edellinen_sivu = edellinen_sivu, seuraava_sivu = seuraava_sivu)
 
-    # pitäisi tapahtua ainoastaan jos kirjoittaa url-bariin hyllypaikan, johon ei ikinä ole hyllytetty
     else:
         flash('Kyseiselle paikalle ei ole lokeja')
         return redirect(url_for('index'))
