@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<div class="container" style="max-width: 200px; align-content: center; margin-top: 50px;">
+    <table class="table table-bordered">
+        <p>Ahkerimmat työntekijät viikon aikana:</p>
+        <tr>
+            <th>Työntekijä</th>
+            <th>Tapahtumia</th>
+        </tr>
+        {% for tyontekija in tyontekijat %}
+        <tr>
+            <td>{{ tyontekija.username }}</td>
+            <td>{{ tyontekija.maara }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table class="table table-bordered">
+        <p>Hyllypaikkojen määrä ja suhteellinen osuus osastoittain:</p>
+        <tr>
+            <th>Osasto</th>
+            <th>Hyllypaikkojen määrä</th>
+            <th>Osuus hyllypaikoista</th>
+        </tr>
+        {% for osasto in osastot %}
+        <tr>
+            <td>{{ osasto.osasto }}</td>
+            <td>{{ osasto.maara }}</td>
+            <td>{{ osasto.osuus }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

@@ -25,8 +25,10 @@ class Hyllypaikka(db.Model):
 
         # tarkistetaan onko kyseistä tuotetta hyllyssä ja samassa paikassa tilaa vielä
         # ei parametreja mutta wtforms tarkistaa että käyttäjäsyöte on kokonaislukuja - injektion ei pitäisi onnistua
-        stmt = text("SELECT paikkanumero, maara FROM hyllypaikka WHERE tuotekoodi = "+str(tuote.tuotekoodi) + 
-        " AND hyllypaikka.maara + "+str(tuote.hyllytettava) + " <= kapasiteetti LIMIT 1;")
+        stmt = text("SELECT paikkanumero, maara FROM hyllypaikka WHERE hyllypaikka.tuotekoodi = :tuotekoodi"
+        " AND hyllypaikka.maara + :hyllytettava <= kapasiteetti LIMIT 1;")
+        stmt = stmt.bindparams(tuotekoodi = tuote.tuotekoodi, hyllytettava = tuote.hyllytettava)
+
 
         res = db.engine.execute(stmt)
         hyllypaikka = []
@@ -40,10 +42,26 @@ class Hyllypaikka(db.Model):
 
         # ei löytynyt - etsitään samalta osastolta tyhjä paikka
         else:
-            stmt = text("SELECT paikkanumero FROM hyllypaikka WHERE osasto = '"+tuote.kategoria+"' AND maara = 0 LIMIT 1;")
+            stmt = text("SELECT paikkanumero FROM hyllypaikka WHERE osasto = :kategoria AND maara = 0 LIMIT 1;")
+            stmt = stmt.bindparams(kategoria = tuote.kategoria)
 
             res = db.engine.execute(stmt)
             for row in res:
                 hyllypaikka.append({"paikkanumero":row[0], "maara":0})
 
             return hyllypaikka
+
+    @staticmethod
+    def osasto_tilastot():
+
+        stmt = text("SELECT osasto, COUNT(*), COUNT(*) * 100.0 / (SELECT COUNT(*) FROM hyllypaikka) FROM hyllypaikka GROUP BY osasto;")
+
+        res = db.engine.execute(stmt)
+        osastot = []
+
+        for row in res:
+            osastot.append({"osasto":row[0], "maara":row[1], "osuus":[row[2]]})
+
+        return osastot
+
+

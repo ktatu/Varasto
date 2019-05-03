@@ -40,4 +40,12 @@
 </div>
 {% endif %}
 
+<div class="d-flex justify-content-center" style="margin-top: 10px;">
+    {% for field, errors in form.errors.items() %}
+    <ul>
+        <li>{{ form[field].label }}: {{ ', ' .join(errors) }}</li>
+    </ul>
+    {% endfor %}
+</div>
+
 {% endblock %}

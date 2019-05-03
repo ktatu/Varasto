@@ -12,7 +12,6 @@ from application.hyllypaikat.models import Hyllypaikka
 def tuotteet_palautus():
     return redirect(url_for('tuotteet_etusivu'))
 
-# tuotteen luominen ja tuotteen päivitys - päivityksen toteuttaa apumetodi paivita_tuote
 @app.route("/tuotteet", methods=["POST"])
 @login_required
 def luo_tuote():
@@ -63,6 +62,7 @@ def paivita_tuote(tuotekoodi):
     flash('Tuotetiedot päivitetty')
     return redirect(url_for('tuotteet_etusivu'))
 
+# tuotelistaus
 @app.route("/tuotteet", methods=["GET"])
 @login_required
 def tuotteet_indeksi():
@@ -138,8 +138,13 @@ def tuote_toiminnot():
 def poista_tuote(tuotekoodi):
 
     form = PoistoForm(request.form)
+    if not form.validate():
+        flash('Syötteen tulee olla vain kokonaislukuja välillä 1 - 100000')
+        return redirect(url_for('tuotenakyma', tuotekoodi=tuotekoodi))
+
     poisto_koodi = form.tuotekoodi.data
 
+    # tarkistetaan onko varmennukseksi syötetty tuotekoodi sama kuin tuotteen tuotekoodi
     if int(poisto_koodi) != int(tuotekoodi):
         flash('Väärä tuotekoodi')
         return redirect(url_for('tuotenakyma', tuotekoodi = tuotekoodi))

@@ -1,5 +1,7 @@
 from application import db
 from sqlalchemy import Index
+from sqlalchemy.sql import text
+from datetime import datetime, timedelta
 
 class Kayttaja(db.Model):
     __tablename__ = "account"
@@ -37,3 +39,19 @@ class Kayttaja(db.Model):
 
     def role(self):
         return self.rooli
+
+    @staticmethod
+    def ahkerimmat_tyontekijat():
+
+        ylaraja = datetime.now()
+        alaraja = datetime.now() - timedelta(days=7)
+
+        stmt = text("SELECT account.username, COUNT(loki.id) FROM loki JOIN account ON loki.account_id = account.id WHERE loki.luotu BETWEEN :alaraja AND :ylaraja GROUP BY account.username ORDER BY COUNT(loki.id) DESC LIMIT 5;").params(alaraja=alaraja, ylaraja=ylaraja)
+
+        res = db.engine.execute(stmt)
+        tyontekijat = []
+
+        for row in res: 
+            tyontekijat.append({"username":row[0], "maara":row[1]})
+
+        return tyontekijat

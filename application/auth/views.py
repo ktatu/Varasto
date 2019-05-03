@@ -35,11 +35,11 @@ def luo_kayttaja_lomake():
 def luo_kayttaja():
     form = CreateUserForm(request.form)
 
-    #if not form.validate():
-    #    return render_template("auth/create.html", form = form)
+    if not form.validate():
+        return render_template("auth/create.html", form = form)
 
-    checkIfExists = Kayttaja.query.filter(Kayttaja.username == form.username.data).first()
-    if checkIfExists:
+    onko_olemassa = Kayttaja.query.filter(Kayttaja.username == form.username.data).first()
+    if onko_olemassa:
         flash('Käyttäjänimi on jo olemassa')
         return redirect(url_for("luo_kayttaja_lomake"))
 
