@@ -65,7 +65,7 @@ Tuotetiedot                |  Hyllypaikkatiedot
 
 - <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/saldolisays.png">Saldolisäys</a> tehdään, kun jo varaston tietokannassa olevaa tuotetta on tullut lisää. Syötä yläkenttään tuotekoodi, alakenttään tullut määrä ja paina "Lisää saldoon". Uusi erä tuotetta täytyy hyllyttää aivan kuin muutkin tuotteet.
 
-- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivuhaku.png">Tuotehaun</a> voi tehdä myös tuotesivulla kirjoittamalla yläkenttään tuotekoodin ja painamalla "Hae tuotetta".
+- Tuotehaun voi tehdä myös tuotesivulla kirjoittamalla yläkenttään tuotekoodin ja painamalla "Hae tuotetta".
 
 ### Lokit
 
