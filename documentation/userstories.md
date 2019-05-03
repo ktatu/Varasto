@@ -190,7 +190,7 @@
     ```
     SELECT account.username, COUNT(loki.id) FROM loki 
     JOIN account ON loki.account_id = account.id 
-    WHERE loki.luotu BETWEEN :alaraja AND :ylaraja GROUP BY account.username 
+    WHERE loki.luotu BETWEEN ? AND ? GROUP BY account.username 
     ORDER BY COUNT(loki.id) DESC LIMIT 5;
     ```
   - SQL Hyllypaikkojen määrät osastoittain sekä kunkin osaston paikkojen suhteellinen osuus kaikista paikoista (tilasto_nakyma(), application/views.py):
