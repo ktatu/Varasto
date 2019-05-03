@@ -53,13 +53,19 @@ Tuotetiedot                |  Hyllypaikkatiedot
 
 ## Muuta
 
+### Admin-toiminnot
+
+- Admin-käyttäjä pääsee luomaan uusia normaalitason käyttäjätunnuksia, tarkastelemaan tilastoja ja luomaan hyllypaikkoja ylävalikon oikean laidan napista "Admin".
+
+- Admin voi poistaa tuotteen pysyvästi varastolta tai siirtyä päivittämään sen tietoja <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotetiedot.png">tuotetietojen näkymässä</a> (toiminnallisuudet puuttuvat kuvasta)
+
 ### <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivu1.png">Tuotesivu</a>
 
 - Käyttäjä voi <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/listaus.png">listata</a> kaikkien tuotteiden tiedot painamalla tuotesivun nappia "Listaa tuotteet". Jokaisen tuotekoodin kohdalla on linkki kyseisen tuotteen omalla tuotesivulle, josta löytää myös mahdolliset hyllypaikat. Listaus sisältää myös tuotteet joiden määrä varastolla on 0.
 
 - <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/saldolisays.png">Saldolisäys</a> tehdään, kun jo varaston tietokannassa olevaa tuotetta on tullut lisää. Syötä yläkenttään tuotekoodi, alakenttään tullut määrä ja paina "Lisää saldoon". Uusi erä tuotetta täytyy hyllyttää aivan kuin muutkin tuotteet.
 
-- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivuhaku.png">Tuotehaun</a> voi tehdä myös tuotesivulla kirjoittamalla yläkenttään tuotekoodin ja painamalla "Hae tuotetta". Tuotteen tiedot ilmestyvät suoraan tuotesivulle.
+- <a href="https://github.com/ktatu/Varastojarjestelma/blob/master/documentation/kayttoohjekuvat/tuotesivuhaku.png">Tuotehaun</a> voi tehdä myös tuotesivulla kirjoittamalla yläkenttään tuotekoodin ja painamalla "Hae tuotetta".
 
 ### Lokit
 
