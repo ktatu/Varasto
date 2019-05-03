@@ -3,8 +3,8 @@ from wtforms import PasswordField, StringField
 from wtforms.validators import InputRequired, length
 
 class LoginForm(FlaskForm):
-    username = StringField("Käyttäjä", [InputRequired()])
-    password = PasswordField("Salasana", [InputRequired()])
+    username = StringField("Käyttäjä", [InputRequired(), length(min=3, max=30)])
+    password = PasswordField("Salasana", [InputRequired(), length(min=3, max=30)])
 
     class Meta:
         csrf = False

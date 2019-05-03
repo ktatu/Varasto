@@ -40,7 +40,7 @@ def paivita_tuote(tuotekoodi):
     form = PaivitysForm(request.form)
 
     if not form.validate():
-        return redirect(url_for('paivita_tuote_lomake', tuotekoodi=tuotekoodi))
+        return render_template("/tuotteet/update.html", form = form, vanha_tuotekoodi = tuotekoodi)
 
     # tarkistetaan onko tuotekoodi vapaa
     if int(tuotekoodi) != int(form.tuotekoodi.data):

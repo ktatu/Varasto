@@ -22,7 +22,7 @@ class mainPageForm(FlaskForm):
         csrf = False
 
 class PoistoForm(FlaskForm):
-    tuotekoodi = tuotekoodi = IntegerField("Tuotekoodi:", [InputRequired()])
+    tuotekoodi = tuotekoodi = IntegerField("Tuotekoodi:", [InputRequired(), NumberRange(min=10000, max=999999999999999)])
 
     class Meta:
         csrf = False
