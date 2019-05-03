@@ -112,7 +112,7 @@ def saldo_vahenna(paikkanumero, tuotekoodi):
     form = TuoteVahennys(request.form)
     vahennys = int(form.vahennys.data)
 
-    if vahennys > hyllypaikka.maara:
+    if vahennys > hyllypaikka.maara or vahennys == 0:
         flash('Yritit vähentää ' + str(vahennys) + ", kun hyllyssä on " + str(hyllypaikka.maara))
         return redirect(url_for('nayta_hyllypaikka', paikkanumero = hyllypaikka.paikkanumero))
 
