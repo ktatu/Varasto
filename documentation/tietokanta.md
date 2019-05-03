@@ -59,7 +59,7 @@
 - tuotekoodi: Tuotteita etsitään ja listataan tuotekoodin perusteella
 
 ### account 
-- id: Ei varsinaisesti käyttöä sovelluksesa tällä hetkellä
+- id: Käytetään yhteenvetokyselyssä
 - nimi, username, password: Käyttäjätunnuksia luodessa etsitään onko nimi käytössä, kaikkia kolmea haetaan sisäänkirjautumisen yhteydessä tietokannasta
 
 ### hyllypaikka
